@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSettings();
   initBoot(); initClock(); initCalendar(); initTerminal();
   initDockMag(); initMenuBar(); initGitHub();
-  initLanyard(); initSettings(); initSafari();
+  initLanyard(); initSettings(); initSafari(); initYouTube();
   applyAllSettings();
   initNotes();
   refreshDock();
@@ -119,24 +119,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ====================== LAUNCHPAD ====================== */
 const LAUNCHPAD_APPS = [
-  { id: 'finder', name: 'Finder', img: MACOS_ICONS.finder },
   { id: 'safari', name: 'Safari', img: MACOS_ICONS.safari },
-  { id: 'mail', name: 'Mail', img: MACOS_ICONS.mail },
-  { id: 'notes', name: 'Notes', img: MACOS_ICONS.notes },
+  { id: 'youtube', name: 'YouTube', img: 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png' },
   { id: 'discord', name: 'Discord', img: MACOS_ICONS.discord },
-  { id: 'github', name: 'GitHub', img: MACOS_ICONS.github },
   { id: 'spotify', name: 'Spotify', img: MACOS_ICONS.spotify },
+  { id: 'github', name: 'GitHub', img: MACOS_ICONS.github },
+  { id: 'notes', name: 'Notes', img: MACOS_ICONS.notes },
+  { id: 'finder', name: 'Finder', img: MACOS_ICONS.finder },
+  { id: 'mail', name: 'Mail', img: MACOS_ICONS.mail },
   { id: 'terminal', name: 'Terminal', img: MACOS_ICONS.terminal },
-  { id: 'calculator', name: 'Calculator', img: MACOS_ICONS.calculator },
   { id: 'settings', name: 'Settings', img: MACOS_ICONS.settings },
-  { id: 'camera', name: 'Camera', img: MACOS_ICONS.camera },
-  { id: 'chess', name: 'Chess', img: MACOS_ICONS.chess },
+  { id: 'calendar', name: 'Calendar', img: MACOS_ICONS.calendar },
   { id: 'game2048', name: '2048', img: 'https://cdn-icons-png.flaticon.com/512/8649/8649595.png' },
-  { id: 'flappy', name: 'Flappy Bird', img: 'https://cdn-icons-png.flaticon.com/512/1864/1864513.png' },
   { id: 'tetris', name: 'Tetris', img: 'https://cdn-icons-png.flaticon.com/512/2583/2583482.png' },
+  { id: 'flappy', name: 'Flappy Bird', img: 'https://cdn-icons-png.flaticon.com/512/1864/1864513.png' },
   { id: 'snake', name: 'Snake', img: 'https://cdn-icons-png.flaticon.com/512/616/616554.png' },
-  { id: 'achievements', name: 'Achievements', img: MACOS_ICONS.achievements },
-  { id: 'calendar', name: 'Calendar', img: MACOS_ICONS.calendar }
+  { id: 'chess', name: 'Chess', img: MACOS_ICONS.chess },
+  { id: 'calculator', name: 'Calculator', img: MACOS_ICONS.calculator },
+  { id: 'camera', name: 'Camera', img: MACOS_ICONS.camera },
+  { id: 'achievements', name: 'Achievements', img: MACOS_ICONS.achievements }
 ];
 
 function initLaunchpad() {
@@ -886,7 +887,7 @@ function initSettings(startSection = 'appearance') {
         <img src="https://avatars.githubusercontent.com/u/111640651?v=4" style="width:32px; height:32px; border-radius:50%" alt="">
         <div>
           <div style="font-size:13px; font-weight:600">${settingsState.username}</div>
-          <div style="font-size:11px; opacity:0.5">Apple Account</div>
+          <div style="font-size:11px; opacity:0.5">ProWiddan Account</div>
         </div>
       </div>
     </div>
@@ -1420,6 +1421,9 @@ function initDockMag() {
   const BASE_SIZE = 58;
   const MAX_SIZE = 100;
   const DISTANCE_THRESHOLD = 200;
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  if (isTouch) return; // Disable magnification on mobile
 
   document.addEventListener('mousemove', (e) => {
     const mouseX = e.clientX;
@@ -1643,6 +1647,9 @@ function calcBtn(v) {
     }
     calcReset = true;
     animate();
+  } else if (v === '2nd') {
+    document.querySelector('.calc-keys')?.classList.toggle('scientific');
+    return;
   } else if (v === 'pi') {
     calcDisplay = Math.PI.toString();
     calcReset = true;
@@ -1667,7 +1674,16 @@ function calcBtn(v) {
     calcDisplay = num.toPrecision(8).toString();
   }
 
-  display.textContent = calcDisplay;
+  // Highlight active operator
+  document.querySelectorAll('.ck-op').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent === calcOp && !calcReset);
+  });
+
+  // Toggle AC / C
+  const acBtn = Array.from(document.querySelectorAll('.ck-fn')).find(b => b.textContent === 'AC' || b.textContent === 'C');
+  if (acBtn) acBtn.textContent = (calcDisplay === '0' && !calcOp) ? 'AC' : 'C';
+
+  display.innerHTML = `<span class="calc-display-val">${calcDisplay}</span>`;
 }
 
 
@@ -2406,3 +2422,186 @@ function initSnake() {
     }
   };
 }
+
+/* ====================== TUTORIAL SYSTEM ====================== */
+let currentTutorialStep = 0;
+const tutorialSteps = [
+  { text: "Hey! Welcome to ProWiddanOS. It's a tribute to macOS, built entirely with code. Let's take a quick look around.", target: null },
+  { text: "Up here is the Menu Bar. It's where you'll find system settings, the clock, and some handy controls.", target: "#menubar" },
+  { text: "This is the Dock. Just like on a real Mac, it holds your open apps. Give them a hover—they're quite reactive.", target: "#dock" },
+  { text: "The Launchpad is where all the fun stuff is. I've packed it with games and tools for you to explore.", target: ".dock-item[data-app='launchpad']" },
+  { text: "Over here is my Discord widget. You can see my real-time status or judge my Spotify playlist. (Mostly vibes).", target: "#widget-discord" },
+  { text: "That's the basic tour! Feel free to click around and break things—it's how I learned to build this.", target: null }
+];
+
+let tutorialTypingTimer = null;
+
+function startTutorial() {
+  const overlay = document.getElementById('tutorial-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('hidden');
+  currentTutorialStep = 0;
+  updateTutorialStep();
+}
+
+function updateTutorialStep() {
+  const textEl = document.getElementById('tutorial-text');
+  const card = document.querySelector('.tutorial-card');
+  const dots = document.querySelectorAll('.tutorial-dot');
+
+  // Remove old highlight
+  document.querySelectorAll('.tutorial-highlight').forEach(el => el.classList.remove('tutorial-highlight'));
+
+  // Card Bounce Animation on step change
+  if (card) {
+    card.style.animation = 'none';
+    card.offsetHeight; // trigger reflow
+    card.style.animation = 'springPop 0.5s var(--spring) forwards';
+  }
+
+  const step = tutorialSteps[currentTutorialStep];
+
+  // Typing Effect
+  if (textEl) {
+    if (tutorialTypingTimer) clearInterval(tutorialTypingTimer);
+    textEl.textContent = '';
+    textEl.classList.add('typing');
+    let i = 0;
+    tutorialTypingTimer = setInterval(() => {
+      if (i < step.text.length) {
+        textEl.textContent += step.text.charAt(i);
+        i++;
+      } else {
+        clearInterval(tutorialTypingTimer);
+        textEl.classList.remove('typing');
+      }
+    }, 25);
+  }
+
+  // Add new highlight and punch hole
+  if (step.target) {
+    const target = document.querySelector(step.target);
+    if (target) {
+      target.classList.add('tutorial-highlight');
+      const rect = target.getBoundingClientRect();
+      const overlay = document.getElementById('tutorial-overlay');
+      if (overlay) {
+        overlay.style.setProperty('--hole-top', `${rect.top}px`);
+        overlay.style.setProperty('--hole-left', `${rect.left}px`);
+        overlay.style.setProperty('--hole-right', `${rect.right}px`);
+        overlay.style.setProperty('--hole-bottom', `${rect.bottom}px`);
+      }
+    }
+  } else {
+    // Reset hole if no target
+    const overlay = document.getElementById('tutorial-overlay');
+    if (overlay) {
+      overlay.style.setProperty('--hole-top', '0');
+      overlay.style.setProperty('--hole-left', '0');
+      overlay.style.setProperty('--hole-right', '0');
+      overlay.style.setProperty('--hole-bottom', '0');
+    }
+  }
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentTutorialStep);
+  });
+
+  const nextBtn = document.querySelector('.btn-tutorial.next');
+  if (nextBtn) nextBtn.textContent = currentTutorialStep === tutorialSteps.length - 1 ? "Get Started! 🚀" : "Next Step";
+}
+
+function nextTutorialStep() {
+  if (currentTutorialStep < tutorialSteps.length - 1) {
+    currentTutorialStep++;
+    updateTutorialStep();
+  } else {
+    skipTutorial();
+  }
+}
+
+function skipTutorial() {
+  const overlay = document.getElementById('tutorial-overlay');
+  if (overlay) {
+    overlay.classList.add('hidden');
+    overlay.style.setProperty('--hole-top', '0');
+    overlay.style.setProperty('--hole-left', '0');
+    overlay.style.setProperty('--hole-right', '0');
+    overlay.style.setProperty('--hole-bottom', '0');
+  }
+  document.querySelectorAll('.tutorial-highlight').forEach(el => el.classList.remove('tutorial-highlight'));
+  localStorage.setItem('prowiddan_tutorial_seen', 'true');
+}
+
+// Check for first visit
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    if (!localStorage.getItem('prowiddan_tutorial_seen')) {
+      startTutorial();
+    }
+  }, 4500); // Start after boot sequence
+});
+
+/* ====================== YOUTUBE APP: RECREATED ====================== */
+const YT_VIDEOS = [
+  { id: 'FcMfck3F9gA', title: "DIE YOU FILTH | by adichapri16", author: "adichapri16", views: "38 views", date: "9 days ago", duration: "0:08", thumb: "https://i.ytimg.com/an_webp/FcMfck3F9gA/mqdefault_6s.webp?du=3000&sqp=CMC438wG&rs=AOn4CLByrdX0zJWxHWXiXTbDCZU8Z-mUZQ" },
+  { id: 'B4ZEGk3p8ks', title: "Kim Jong Adi | by adichapri16", author: "adichapri16", views: "43 views", date: "10 days ago", duration: "0:34", thumb: "https://i.ytimg.com/an_webp/B4ZEGk3p8ks/mqdefault_6s.webp?du=3000&sqp=CIXF38wG&rs=AOn4CLChE3k8dL6G5se4jATplw6DbEzvrA" },
+  { id: 'A_Rg9PJM0Js', title: "Hyperbaiter Disstrack | by adichapri16", author: "adichapri16", views: "32 views", date: "10 days ago", duration: "0:37", thumb: "https://i.ytimg.com/vi/A_Rg9PJM0Js/hqdefault.jpg?sqp=-oaymwEnCNACELwBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLDpFUFYVC7YhRF8Lr5Rm9YRT6gPcQ" }
+];
+
+function initYouTube() {
+  const grid = document.getElementById('yt-video-grid');
+  if (!grid) return;
+  renderYouTubeGrid(YT_VIDEOS);
+
+  const searchInput = document.querySelector('.yt-search-input');
+  searchInput?.addEventListener('input', (e) => {
+    const q = e.target.value.toLowerCase();
+    const filtered = YT_VIDEOS.filter(v => v.title.toLowerCase().includes(q));
+    renderYouTubeGrid(filtered);
+  });
+}
+
+function renderYouTubeGrid(videos) {
+  const grid = document.getElementById('yt-video-grid');
+  if (!grid) return;
+  grid.innerHTML = videos.map(v => `
+    <div class="yt-video-card" onclick="window.open('https://www.youtube.com/@Adichapri16', '_blank')">
+      <div class="yt-thumbnail-wrapper">
+        <img src="${v.thumb}" class="yt-thumbnail" alt="">
+        <span class="yt-duration">${v.duration}</span>
+      </div>
+      <div class="yt-video-info">
+        <div class="yt-video-meta">
+          <h4>${v.title}</h4>
+          <p>${v.author}</p>
+          <p>${v.views} • ${v.date}</p>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function playYouTubeVideo(id) {
+  const overlay = document.getElementById('yt-player-overlay');
+  if (!overlay) return;
+  overlay.innerHTML = `
+    <div class="yt-player-header">
+      <button class="yt-back-btn" onclick="closeYouTubePlayer()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <span style="font-weight:600">Back home</span>
+    </div>
+    <iframe class="yt-video-frame" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  `;
+  overlay.classList.remove('hidden');
+}
+
+function closeYouTubePlayer() {
+  const overlay = document.getElementById('yt-player-overlay');
+  if (overlay) {
+    overlay.classList.add('hidden');
+    overlay.innerHTML = '';
+  }
+}
+

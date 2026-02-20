@@ -306,11 +306,76 @@ textarea {
   }
 }
 
-/* DESKTOP */
+/* DESKTOP BACKGROUND - FIXED AGAINST ZOOM */
+body,
+#desktop {
+  background-attachment: fixed !important;
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
 #desktop {
   position: fixed;
   inset: 0;
-  background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=85') center/cover no-repeat;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* MOBILE ORIENTATION WARNING */
+#orientation-warning {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background: #000;
+  display: none;
+  /* Shown via media query */
+  color: #fff;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+
+.ow-content {
+  animation: fadeIn 0.8s var(--smooth);
+}
+
+.ow-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+}
+
+.ow-content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.ow-content p {
+  color: var(--t2);
+  font-size: 16px;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* Show warning only in Portrait on small screens */
+@media (max-width: 1024px) and (orientation: portrait) {
+  #orientation-warning {
+    display: flex;
+  }
+
+  #boot-screen,
+  #desktop,
+  #tutorial-overlay,
+  #context-menu,
+  #notification-container {
+    display: none !important;
+  }
 }
 
 /* DESKTOP ICONS */
@@ -2826,36 +2891,52 @@ textarea {
 }
 
 .ck {
-  background: #505050;
+  background: #3c3c3e;
   border: none;
   color: #fff;
-  font: 18px var(--sf);
+  font: 20px var(--sf);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .1s;
-  min-height: 0
+  transition: all .2s var(--smooth);
+  min-height: 0;
+  user-select: none;
+}
+
+.ck:hover {
+  background: #4d4d4f;
 }
 
 .ck:active {
-  background: #6b6b6b
+  background: #5d5d5f;
+  transform: scale(0.96);
 }
 
 .ck-fn {
-  background: #d4d4d2;
-  color: #000
+  background: #a5a5a5;
+  color: #000;
+  font-weight: 500;
+}
+
+.ck-fn:hover {
+  background: #b5b5b5;
 }
 
 .ck-fn:active {
-  background: #e8e8e6
+  background: #c5c5c5;
 }
 
 .ck-op {
-  background: #ff9500
+  background: #ff9f0a;
+  font-size: 24px;
+}
+
+.ck-op:hover {
+  background: #ffa825;
 }
 
 .ck-op:active {
-  background: #ffb340
+  background: #ffb340;
 }
 
 .ck-zero {
@@ -4386,54 +4467,86 @@ textarea {
   background: rgba(255, 255, 255, .2)
 }
 
-/* RESPONSIVE — Mobile Landscape */
+/* RESPONSIVE — Phone & Tablet Support */
 @media (max-width: 768px) {
   #desktop-icons {
-    display: none
+    display: none;
   }
 
   #widgets {
-    width: 200px;
-    left: 8px
+    display: none;
   }
 
   .window {
-    width: 95vw !important;
-    left: 2.5vw !important
+    width: 96vw !important;
+    height: 85vh !important;
+    top: 40px !important;
+    left: 2vw !important;
+    border-radius: 12px !important;
   }
 
   .lp-grid {
-    grid-template-columns: repeat(4, 1fr)
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 90vw;
+  }
+
+  .lp-search {
+    width: 80%;
+  }
+
+  #menubar .mb-item:not(.mb-apple):not(.mb-appname) {
+    display: none;
+  }
+
+  #menubar .mb-right {
+    gap: 10px;
+  }
+
+  #mb-clock {
+    font-size: 11px;
+    letter-spacing: -0.2px;
+  }
+
+  #dock {
+    width: 95%;
+    bottom: 8px;
+  }
+
+  .dock-shelf {
+    gap: 4px;
+    padding: 6px;
+    max-width: 100%;
+    overflow-x: auto;
+    justify-content: center;
+  }
+
+  :root {
+    --dock-size: 42px;
+  }
+
+  .tutorial-card {
+    width: 90vw;
+    padding: 20px;
   }
 }
 
 @media (orientation: landscape) and (max-height: 500px) {
-  #widgets {
-    flex-direction: row;
-    width: auto;
-    top: 30px;
-    gap: 8px
-  }
-
-  .widget {
-    min-width: 200px
+  .window {
+    height: 75vh !important;
   }
 
   #dock {
-    bottom: 2px
-  }
-
-  .dock-shelf {
-    padding: 2px 6px
+    bottom: 2px;
   }
 
   :root {
-    --dock-size: 38px
+    --dock-size: 34px;
   }
 
   #menubar {
-    height: 22px;
-    font-size: 12px
+    height: 20px;
+    font-size: 11px;
   }
 }
 

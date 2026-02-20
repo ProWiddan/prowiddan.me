@@ -345,33 +345,80 @@ textarea,
     grid-template-columns: repeat(10, 1fr) !important;
 }
 
+.calc-display {
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 200 !important;
+    font-size: 52px !important;
+    transition: all 0.3s var(--smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Slide-in animation for numbers */
+.calc-display-val {
+    display: inline-block;
+    animation: numSlideIn 0.2s var(--smooth) forwards;
+}
+
+@keyframes numSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.calc-keys {
+    transition: grid-template-columns 0.4s var(--smooth);
+}
+
 .ck-scientific {
-    background: #212121 !important;
+    background: #2a2a2c !important;
     font-size: 13px !important;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s var(--smooth);
 }
 
-.ck-scientific:active {
-    background: #3a3a3a !important;
+.calc-keys.scientific .ck-scientific {
+    opacity: 1;
+    transform: scale(1);
 }
 
+.ck-scientific:hover {
+    background: #3a3a3c !important;
+}
+
+/* Result Flash Effect */
 .calc-flash {
-    animation: calcResultFlash 0.2s ease;
+    animation: calcResultFlash 0.3s var(--smooth);
+}
+
+#window-calculator {
+    transition: width 0.4s var(--smooth), height 0.4s var(--smooth), top 0.4s var(--smooth), left 0.4s var(--smooth);
+}
+
+#window-calculator:has(.scientific) {
+    width: 650px !important;
 }
 
 @keyframes calcResultFlash {
     0% {
-        opacity: 0.5;
+        background: rgba(255, 255, 255, 0.2);
     }
 
     100% {
-        opacity: 1;
+        background: transparent;
     }
 }
 
-.calc-display {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 200 !important;
-    font-size: 48px !important;
+.ck-op.active {
+    background: #fff !important;
+    color: #ff9f0a !important;
 }
 
 .discord-native-overlay {
@@ -433,4 +480,415 @@ textarea,
     height: 10px;
     border-radius: 50%;
     background: #23a55a;
+}
+
+/* Tutorial Overlay */
+#tutorial-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.4s var(--smooth);
+    pointer-events: none;
+    /* Allow clicking through the blur part, but the overlay child handles its own clicks */
+
+    /* The hole trick */
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%, 0% 0%,
+            var(--hole-left, 0) var(--hole-top, 0),
+            var(--hole-right, 0) var(--hole-top, 0),
+            var(--hole-right, 0) var(--hole-bottom, 0),
+            var(--hole-left, 0) var(--hole-bottom, 0),
+            var(--hole-left, 0) var(--hole-top, 0));
+}
+
+.tutorial-card {
+    pointer-events: auto;
+    /* Re-enable clicks for the guide card */
+}
+
+#tutorial-overlay.hidden {
+    display: none;
+}
+
+.tutorial-card {
+    width: 380px;
+    background: rgba(30, 30, 35, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    transform: translateY(0);
+    animation: springPop 0.6s var(--spring);
+}
+
+.tutorial-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.tutorial-avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+}
+
+.tutorial-title-group h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #fff;
+}
+
+.tutorial-title-group span {
+    font-size: 12px;
+    opacity: 0.5;
+    color: #fff;
+}
+
+.tutorial-body {
+    min-height: 80px;
+    margin-bottom: 30px;
+}
+
+.tutorial-body p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-weight: 500;
+}
+
+#tutorial-text.typing::after {
+    content: '|';
+    margin-left: 2px;
+    color: var(--blue);
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.tutorial-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-tutorial {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-tutorial.skip {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.btn-tutorial.next {
+    background: var(--blue);
+    color: white;
+    flex: 1;
+}
+
+.btn-tutorial:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+.tutorial-progress {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.tutorial-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s;
+}
+
+.tutorial-dot.active {
+    background: var(--blue);
+    width: 16px;
+    border-radius: 3px;
+}
+
+@keyframes springPop {
+    0% {
+        transform: scale(0.8) translateY(40px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.tutorial-highlight {
+    position: relative;
+    z-index: 10001 !important;
+    box-shadow: 0 0 0 4px var(--blue), 0 0 20px var(--blue) !important;
+    transition: all 0.3s var(--smooth);
+    backdrop-filter: blur(0) !important;
+    filter: blur(0) !important;
+}
+
+/* YouTube App Styles */
+.yt-app {
+    display: flex;
+    height: 100%;
+    background: #0f0f0f;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+.yt-sidebar {
+    width: 240px;
+    padding: 12px;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.yt-sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s var(--smooth);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.yt-sidebar-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.yt-sidebar-item.active {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.yt-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background: #0f0f0f;
+}
+
+.yt-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(20px);
+    z-index: 10;
+}
+
+.yt-search-container {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    background: #121212;
+    border: 1px solid #333;
+    border-radius: 40px;
+    padding: 0 20px;
+    margin: 0 40px;
+}
+
+.yt-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 8px 0;
+    font-size: 14px;
+    outline: none;
+}
+
+.yt-search-btn {
+    background: none;
+    border: none;
+    color: #888;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.yt-user-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.yt-profile-blob {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.yt-video-grid {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px 16px;
+}
+
+.yt-video-card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.yt-thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #222;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.yt-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s var(--smooth);
+}
+
+.yt-video-card:hover .yt-thumbnail {
+    transform: scale(1.05);
+}
+
+.yt-duration {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.yt-video-info {
+    display: flex;
+    gap: 12px;
+}
+
+.yt-chan-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.yt-video-meta {
+    flex: 1;
+}
+
+.yt-video-card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.3s var(--smooth);
+}
+
+.yt-video-card:hover {
+    transform: translateY(-4px);
+}
+
+.yt-video-meta h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 6px 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.yt-video-meta p {
+    font-size: 12px;
+    color: #888;
+    margin: 0;
+}
+
+/* Video Player Overlay */
+.yt-player-overlay {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s var(--smooth);
+}
+
+.yt-player-header {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #0f0f0f;
+}
+
+.yt-back-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.yt-back-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.yt-video-frame {
+    flex: 1;
+    width: 100%;
+    border: none;
 }
