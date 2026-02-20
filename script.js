@@ -1417,27 +1417,29 @@ function initDockMag() {
   const dockShelf = document.getElementById('dock-shelf');
   if (!dock || !dockShelf) return;
 
-  const dockItems = dockShelf.querySelectorAll('.dock-item .dock-img');
-  const BASE_SIZE = 58;
-  const MAX_SIZE = 100;
-  const DISTANCE_THRESHOLD = 200;
-  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const getBaseSize = () => {
+    return parseFloat(getComputedStyle(dock).getPropertyValue('--dock-size')) || 58;
+  };
 
-  if (isTouch) return; // Disable magnification on mobile
+  const MAX_SCALE = 1.7; // 70% increase
+  const DISTANCE_THRESHOLD = 180;
 
   document.addEventListener('mousemove', (e) => {
+    // Optimization: Check pointerType. If it's a touch device swipe, don't magnify
+    if (e.pointerType === 'touch') return;
+
     const mouseX = e.clientX;
     const mouseY = e.clientY;
 
-    // Only magnify if mouse is close to the bottom edge
     const dockRect = dock.getBoundingClientRect();
-    if (mouseY < dockRect.top - 50) {
+    // Only magnify if mouse is close to the bottom/dock area
+    if (mouseY < dockRect.top - 60 || mouseY > dockRect.bottom + 60) {
       resetDock();
       return;
     }
 
     const currentItems = dockShelf.querySelectorAll('.dock-item .dock-img');
-    let maxScaledHeight = BASE_SIZE;
+    const baseSize = getBaseSize();
 
     currentItems.forEach(img => {
       const rect = img.getBoundingClientRect();
@@ -1446,15 +1448,14 @@ function initDockMag() {
 
       if (distance < DISTANCE_THRESHOLD) {
         const normalized = distance / DISTANCE_THRESHOLD;
-        const scale = 1 + (MAX_SIZE / BASE_SIZE - 1) * Math.cos(normalized * Math.PI / 2);
-        const newSize = BASE_SIZE * scale;
+        const scale = 1 + (MAX_SCALE - 1) * Math.cos(normalized * Math.PI / 2);
+        const newSize = baseSize * scale;
         img.style.width = `${newSize}px`;
         img.style.height = `${newSize}px`;
-        img.style.marginBottom = `${(newSize - BASE_SIZE) / 2}px`; // Pop up effect
-        if (newSize > maxScaledHeight) maxScaledHeight = newSize;
+        img.style.marginBottom = `${(newSize - baseSize) / 2}px`;
       } else {
-        img.style.width = `${BASE_SIZE}px`;
-        img.style.height = `${BASE_SIZE}px`;
+        img.style.width = `${baseSize}px`;
+        img.style.height = `${baseSize}px`;
         img.style.marginBottom = '0px';
       }
     });
@@ -1463,9 +1464,10 @@ function initDockMag() {
   document.addEventListener('mouseleave', resetDock);
 
   function resetDock() {
+    const baseSize = getBaseSize();
     dockShelf.querySelectorAll('.dock-item .dock-img').forEach(img => {
-      img.style.width = `${BASE_SIZE}px`;
-      img.style.height = `${BASE_SIZE}px`;
+      img.style.width = `${baseSize}px`;
+      img.style.height = `${baseSize}px`;
       img.style.marginBottom = '0px';
     });
   }
