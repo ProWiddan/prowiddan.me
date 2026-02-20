@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProWiddanOS</title>
+    <meta name="description" content="Sujayram's Personal Operating System Portfolio — a macOS Tahoe experience.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="refinements.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- BOOT SCREEN -->
+    <div id="boot-screen">
+        <div class="boot-content">
+            <div class="apple-logo">
+                <svg width="60" height="74" viewBox="0 0 170 200" fill="#fff" style="display:block">
+                    <path
+                        d="M150.37,130.25c-2.45,5.66-5.35,10.87-8.71,15.66c-4.58,6.53-8.33,11.05-11.22,13.56 c-4.48,4.12-9.28,6.23-14.42,6.35c-3.69,0-8.14-1.05-13.32-3.18c-5.19-2.12-9.97-3.22-14.34-3.22c-4.58,0-9.43,1.1-14.54,3.31 c-5.11,2.21-9.47,3.38-13.11,3.51c-5.03,0.28-10.12-1.93-15.29-6.62c-3.22-3-7.21-8.36-11.96-16.03 c-5.03-7.85-9.31-17.1-12.83-27.73c-3.52-10.63-5.28-21.36-5.28-32.2c0-11.21,2.26-20.73,6.77-28.53 c4.48-7.8,10.38-13.88,17.7-18.23c7.32-4.35,15.53-6.57,24.63-6.68c4,0,9.15,1.17,15.46,3.51c6.32,2.34,10.37,3.51,12.16,3.51 c2.2,0,7.39-1.38,15.57-4.13c8.18-2.75,14.67-4,19.49-3.72c11,0.83,19.34,4.2,25,10.12c-8.95,5.43-13.43,12.87-13.43,22.31 c0,10.2,4.48,18.73,13.43,25.6c-2.45,6.13-5.38,12.21-8.79,18.25L150.37,130.25z M119.11,17.47c0,10.12-4.13,19.41-12.4,27.86 c-8.27,8.45-17.63,12.8-28.08,13.06c-0.14-1.12-0.21-2.28-0.21-3.49c0-9.45,4.02-18.99,12.06-28.62 c4.03-4.83,8.96-8.86,14.78-12.09c5.82-3.23,11.45-5.04,16.88-5.44C118.91,10.4,119.11,11.85,119.11,17.47z" />
+                </svg>
+            </div>
+            <div class="boot-progress-track">
+                <div class="boot-progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DESKTOP -->
+    <div id="desktop" class="hidden">
+        <!-- MENU BAR -->
+        <header id="menubar">
+            <div class="mb-left">
+                <button class="mb-item mb-apple" data-menu="apple">
+                    <svg width="15" height="18" viewBox="0 0 170 200" fill="currentColor">
+                        <path
+                            d="M150.37,130.25c-2.45,5.66-5.35,10.87-8.71,15.66c-4.58,6.53-8.33,11.05-11.22,13.56 c-4.48,4.12-9.28,6.23-14.42,6.35c-3.69,0-8.14-1.05-13.32-3.18c-5.19-2.12-9.97-3.22-14.34-3.22c-4.58,0-9.43,1.1-14.54,3.31 c-5.11,2.21-9.47,3.38-13.11,3.51c-5.03,0.28-10.12-1.93-15.29-6.62c-3.22-3-7.21-8.36-11.96-16.03 c-5.03-7.85-9.31-17.1-12.83-27.73c-3.52-10.63-5.28-21.36-5.28-32.2c0-11.21,2.26-20.73,6.77-28.53 c4.48-7.8,10.38-13.88,17.7-18.23c7.32-4.35,15.53-6.57,24.63-6.68c4,0,9.15,1.17,15.46,3.51c6.32,2.34,10.37,3.51,12.16,3.51 c2.2,0,7.39-1.38,15.57-4.13c8.18-2.75,14.67-4,19.49-3.72c11,0.83,19.34,4.2,25,10.12c-8.95,5.43-13.43,12.87-13.43,22.31 c0,10.2,4.48,18.73,13.43,25.6c-2.45,6.13-5.38,12.21-8.79,18.25L150.37,130.25z M119.11,17.47c0,10.12-4.13,19.41-12.4,27.86 c-8.27,8.45-17.63,12.8-28.08,13.06c-0.14-1.12-0.21-2.28-0.21-3.49c0-9.45,4.02-18.99,12.06-28.62 c4.03-4.83,8.96-8.86,14.78-12.09c5.82-3.23,11.45-5.04,16.88-5.44C118.91,10.4,119.11,11.85,119.11,17.47z" />
+                    </svg>
+                </button>
+                <button class="mb-item mb-appname" id="mb-appname">Finder</button>
+                <button class="mb-item" data-menu="file">File</button>
+                <button class="mb-item" data-menu="edit">Edit</button>
+                <button class="mb-item" data-menu="view">View</button>
+                <button class="mb-item" data-menu="go">Go</button>
+                <button class="mb-item" data-menu="window">Window</button>
+                <button class="mb-item" data-menu="help">Help</button>
+            </div>
+            <div class="mb-right">
+                <button class="mb-icon-btn" data-menu="achievements" title="Achievements">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2V9a2 2 0 012-2h2m12 11h2a2 2 0 002-2V9a2 2 0 00-2-2h-2M8 22h8M12 18v4" />
+                    </svg>
+                </button>
+                <div class="mb-status-dot" id="mb-status-dot" title="Discord status"></div>
+                <button class="mb-icon-btn" data-menu="control" title="Control Center">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z" />
+                    </svg>
+                </button>
+                <button class="mb-icon-btn" data-menu="wifi" title="Wi‑Fi">
+                    <svg width="15" height="11" viewBox="0 0 24 18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 6c3-3 6-4.5 11-4.5S20 3 23 6" />
+                        <path d="M5 10c2-2 4.5-3 7-3s5 1 7 3" />
+                        <path d="M9 14c1.5-1.5 2.5-2 3-2s1.5.5 3 2" />
+                        <circle cx="12" cy="17" r="1" fill="currentColor" />
+                    </svg>
+                </button>
+                <button class="mb-icon-btn" data-menu="battery" title="Battery">
+                    <svg width="16" height="10" viewBox="0 0 20 12" fill="none" stroke="currentColor"
+                        stroke-width="1.5">
+                        <rect x="1" y="1" width="15" height="10" rx="2" />
+                        <rect x="2.5" y="2.5" width="9" height="7" rx="1" fill="currentColor" opacity=".6" />
+                        <path d="M17 4v4" stroke-linecap="round" />
+                    </svg>
+                </button>
+                <span class="mb-clock" id="mb-clock"></span>
+            </div>
+        </header>
+
+        <!-- DROPDOWNS -->
+        <div class="dropdown" id="dd-achievements" style="width: 240px; padding: 12px;">
+            <div
+                style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; padding: 0 4px;">
+                <div style="font-size: 11px; font-weight: 700; color: var(--t3); text-transform: uppercase;">
+                    Achievements</div>
+                <button class="btn-ach-view" onclick="openWindow('achievements'); closeAllMenus();">View All</button>
+            </div>
+            <div id="achievements-list" class="achievements-grid">
+                <!-- JS populated -->
+            </div>
+        </div>
+        <div class="dropdown" id="dd-apple">
+            <button class="dd-item" onclick="showAboutMac()">About This Mac</button>
+            <div class="dd-sep"></div>
+            <button class="dd-item" onclick="openWindow('settings')">System Settings...</button>
+            <div class="dd-sep"></div>
+            <button class="dd-item" onclick="toggleFullScreen()">Enter Full Screen</button>
+            <div class="dd-sep"></div>
+            <button class="dd-item disabled">Sleep</button>
+            <button class="dd-item disabled">Restart...</button>
+            <button class="dd-item disabled">Shut Down...</button>
+        </div>
+        <div class="dropdown" id="dd-file">
+            <button class="dd-item" onclick="openNewWindow('finder')">New Finder Window <span
+                    class="dd-shortcut">⌘N</span></button>
+            <button class="dd-item" onclick="openNewWindow('notes')">New Notes Window</button>
+            <button class="dd-item" onclick="openNewWindow('safari')">New Safari Window</button>
+            <div class="dd-sep"></div>
+            <button class="dd-item" onclick="closeActiveWindow()">Close Window <span
+                    class="dd-shortcut">⌘W</span></button>
+        </div>
+        <div class="dropdown" id="dd-edit">
+            <button class="dd-item disabled">Undo <span class="dd-shortcut">⌘Z</span></button>
+            <button class="dd-item disabled">Redo <span class="dd-shortcut">⇧⌘Z</span></button>
+            <div class="dd-sep"></div>
+            <button class="dd-item disabled">Cut <span class="dd-shortcut">⌘X</span></button>
+            <button class="dd-item disabled">Copy <span class="dd-shortcut">⌘C</span></button>
+            <button class="dd-item disabled">Paste <span class="dd-shortcut">⌘V</span></button>
+            <button class="dd-item disabled">Select All <span class="dd-shortcut">⌘A</span></button>
+        </div>
+        <div class="dropdown" id="dd-view">
+            <button class="dd-item" onclick="toggleFullScreen()">Enter Full Screen <span
+                    class="dd-shortcut">⌃⌘F</span></button>
+        </div>
+        <div class="dropdown" id="dd-go">
+            <button class="dd-item" onclick="openWindow('finder'); navigateFinder('desktop')">Desktop</button>
+            <button class="dd-item" onclick="openWindow('finder'); navigateFinder('applications')">Applications</button>
+            <button class="dd-item" onclick="openWindow('finder'); navigateFinder('documents')">Documents</button>
+            <button class="dd-item" onclick="openWindow('finder'); navigateFinder('downloads')">Downloads</button>
+            <button class="dd-item" onclick="openWindow('github')">GitHub — ProWiddan</button>
+        </div>
+        <div class="dropdown" id="dd-window">
+            <button class="dd-item" onclick="minimizeAll()">Minimize All</button>
+            <button class="dd-item" onclick="closeAllWindows()">Close All Windows</button>
+            <div class="dd-sep"></div>
+            <div id="dd-window-list"></div>
+        </div>
+
+        <!-- CONTEXT MENU -->
+        <div id="context-menu" class="dropdown context-menu">
+            <button class="dd-item" onclick="window.history.back()">Back</button>
+            <button class="dd-item" onclick="window.location.reload()">Reload</button>
+            <div class="dd-sep"></div>
+            <button class="dd-item" onclick="openWindow('settings')">System Settings...</button>
+            <button class="dd-item" onclick="toggleLaunchpad()">Open Launchpad</button>
+            <div class="dd-sep"></div>
+            <button class="dd-item"
+                onclick="openWindow('settings'); setTimeout(() => renderSettings('wallpaper'), 100)">Change
+                Wallpaper...</button>
+        </div>
+        <div class="dropdown" id="dd-help">
+            <button class="dd-item disabled">macOS Help</button>
+            <div class="dd-sep"></div>
+            <button class="dd-item" onclick="window.open('https://github.com/ProWiddan','_blank')">Visit GitHub</button>
+        </div>
+        <div class="dropdown dd-control" id="dd-control">
+            <div class="control-grid">
+                <button class="control-tile" onclick="toggleFullScreen()"><span class="control-icon"
+                        style="font-size:12px;font-weight:bold">FULL</span><span>Full
+                        Screen</span></button>
+                <button class="control-tile"><span class="control-icon"
+                        style="font-size:12px;font-weight:bold">WIFI</span><span>Wi‑Fi</span><span
+                        class="control-status">On</span></button>
+                <button class="control-tile"><span class="control-icon"
+                        style="font-size:12px;font-weight:bold">BATT</span><span>Battery</span><span
+                        class="control-status">100%</span></button>
+                <button class="control-tile" onclick="openWindow('spotify')"><span class="control-icon"
+                        style="color:#1DB954;font-size:12px;font-weight:bold">SPOT</span><span>Spotify</span></button>
+                <button class="control-tile" onclick="openWindow('settings')"><span class="control-icon"
+                        style="font-size:12px;font-weight:bold">CONF</span><span>Display</span></button>
+            </div>
+        </div>
+        <div class="dropdown" id="dd-wifi">
+            <div class="dd-item disabled">Wi‑Fi: Connected</div>
+            <div class="dd-sep"></div>
+            <button class="dd-item">prowiddan_5G</button>
+            <button class="dd-item">Other Network...</button>
+        </div>
+        <div class="dropdown" id="dd-battery">
+            <div class="dd-item disabled">Battery: 100%</div>
+            <div class="dd-sep"></div>
+            <button class="dd-item disabled">Battery is charged</button>
+        </div>
+
+        <!-- ABOUT THIS MAC MODAL -->
+        <div class="modal-overlay" id="about-mac-modal">
+            <div class="modal-box">
+                <button class="modal-close" onclick="hideAboutMac()">×</button>
+                <div class="modal-logo">
+                    <svg width="60" height="74" viewBox="0 0 170 200" fill="currentColor"
+                        style="display:block; margin:0 auto">
+                        <path
+                            d="M150.37,130.25c-2.45,5.66-5.35,10.87-8.71,15.66c-4.58,6.53-8.33,11.05-11.22,13.56 c-4.48,4.12-9.28,6.23-14.42,6.35c-3.69,0-8.14-1.05-13.32-3.18c-5.19-2.12-9.97-3.22-14.34-3.22c-4.58,0-9.43,1.1-14.54,3.31 c-5.11,2.21-9.47,3.38-13.11,3.51c-5.03,0.28-10.12-1.93-15.29-6.62c-3.22-3-7.21-8.36-11.96-16.03 c-5.03-7.85-9.31-17.1-12.83-27.73c-3.52-10.63-5.28-21.36-5.28-32.2c0-11.21,2.26-20.73,6.77-28.53 c4.48-7.8,10.38-13.88,17.7-18.23c7.32-4.35,15.53-6.57,24.63-6.68c4,0,9.15,1.17,15.46,3.51c6.32,2.34,10.37,3.51,12.16,3.51 c2.2,0,7.39-1.38,15.57-4.13c8.18-2.75,14.67-4,19.49-3.72c11,0.83,19.34,4.2,25,10.12c-8.95,5.43-13.43,12.87-13.43,22.31 c0,10.2,4.48,18.73,13.43,25.6c-2.45,6.13-5.38,12.21-8.79,18.25L150.37,130.25z M119.11,17.47c0,10.12-4.13,19.41-12.4,27.86 c-8.27,8.45-17.63,12.8-28.08,13.06c-0.14-1.12-0.21-2.28-0.21-3.49c0-9.45,4.02-18.99,12.06-28.62 c4.03-4.83,8.96-8.86,14.78-12.09c5.82-3.23,11.45-5.04,16.88-5.44C118.91,10.4,119.11,11.85,119.11,17.47z" />
+                    </svg>
+                </div>
+                <h2>macOS Tahoe</h2>
+                <p class="modal-sub">Version prowiddan.me v4.0</p>
+                <table class="modal-specs">
+                    <tr>
+                        <td>Chip</td>
+                        <td>Apple M4 Pro</td>
+                    </tr>
+                    <tr>
+                        <td>Memory</td>
+                        <td>24 GB</td>
+                    </tr>
+                    <tr>
+                        <td>Display</td>
+                        <td>Dynamic Retina XDR</td>
+                    </tr>
+                    <tr>
+                        <td>Serial</td>
+                        <td>PRWDDN-2026</td>
+                    </tr>
+                    <tr>
+                        <td>Built by</td>
+                        <td>Sujayram (ProWiddan)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WIDGETS -->
+        <div id="widgets" class="widgets-visible">
+            <div class="widget" id="widget-calendar">
+                <div class="w-cal-header">
+                    <button class="w-cal-nav" id="w-cal-prev">‹</button>
+                    <div class="w-cal-month" id="w-cal-month"></div>
+                    <button class="w-cal-nav" id="w-cal-next">›</button>
+                </div>
+                <div class="w-cal-grid" id="w-cal-grid"></div>
+            </div>
+            <div class="widget widget-discord" id="widget-discord">
+                <div class="w-discord-header">
+                    <img class="w-discord-avatar" id="discord-avatar"
+                        src="https://avatars.githubusercontent.com/u/111640651?v=4" alt="">
+                    <div class="w-discord-info">
+                        <div class="w-discord-name" id="discord-display-name">ProWiddan</div>
+                        <div class="w-discord-tag" id="discord-username">@prowiddan</div>
+                    </div>
+                    <span class="w-discord-badge" id="discord-badge">Offline</span>
+                </div>
+                <div class="w-discord-status" id="discord-last-online">Last seen: Just now</div>
+                <div class="w-discord-activity" id="discord-activity">Chilling...</div>
+
+                <!-- INTEGRATED SPOTIFY (Hidden by default, shown via JS only when playing) -->
+                <div id="w-spotify-integrated" class="w-spotify-integrated hidden" style="margin-top: 10px;">
+                    <div id="w-spotify-playing" class="w-spotify-playing">
+                        <img class="w-spotify-art" id="w-spotify-art" src="" alt="">
+                        <div class="w-spotify-meta">
+                            <div class="w-spotify-song" id="w-spotify-song">No Song</div>
+                            <div class="w-spotify-artist" id="w-spotify-artist">Unknown Artist</div>
+                        </div>
+                        <div class="w-spotify-bars"><span></span><span></span><span></span><span></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SPOTIFY PLAYLIST WIDGET -->
+            <div class="widget widget-spotify-playlist" style="padding:0; overflow:hidden; height: 152px;">
+                <iframe data-testid="embed-iframe" style="border-radius:12px; border:none;"
+                    src="https://open.spotify.com/embed/playlist/3WNBQQyklbTgFkmtXpzLXr?utm_source=generator&theme=0"
+                    width="100%" height="152" frameBorder="0" allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"></iframe>
+            </div>
+        </div>
+
+        <!-- DESKTOP ICONS (macOS folder style) -->
+        <div id="desktop-icons">
+            <div class="desktop-icon desktop-folder" ondblclick="openWindow('notes'); openNoteByTitle('About Me')">
+                <img src="https://s3.macosicons.com/macosicons/icons/wXACI5GsEd/lowResPngFile_9d588459b96594f563889f10f1002539_wXACI5GsEd.png"
+                    alt="" class="folder-icon">
+                <span>About Me</span>
+            </div>
+            <div class="desktop-icon desktop-folder"
+                ondblclick="openWindow('notes'); openNoteByTitle('Skills & Stack')">
+                <img src="https://s3.macosicons.com/macosicons/icons/wXACI5GsEd/lowResPngFile_9d588459b96594f563889f10f1002539_wXACI5GsEd.png"
+                    alt="" class="folder-icon folder-yellow">
+                <span>Skills</span>
+            </div>
+            <div class="desktop-icon desktop-folder" ondblclick="openWindow('github')">
+                <img src="https://s3.macosicons.com/macosicons/icons/wXACI5GsEd/lowResPngFile_9d588459b96594f563889f10f1002539_wXACI5GsEd.png"
+                    alt="" class="folder-icon folder-green">
+                <span>Projects</span>
+            </div>
+            <div class="desktop-icon desktop-folder" ondblclick="openWindow('safari')">
+                <img src="https://s3.macosicons.com/macosicons/icons/wXACI5GsEd/lowResPngFile_9d588459b96594f563889f10f1002539_wXACI5GsEd.png"
+                    alt="" class="folder-icon folder-purple">
+                <span>Contact</span>
+            </div>
+            <div class="desktop-icon" ondblclick="openPreviewResume()">
+                <img src="https://cdn-icons-png.flaticon.com/512/337/337946.png" alt="" class="file-icon">
+                <span>cv.pdf</span>
+            </div>
+        </div>
+
+        <!-- ===================== WINDOWS ===================== -->
+
+        <!-- FINDER -->
+        <div class="window" id="window-finder" style="top:60px;left:120px;width:780px;height:480px">
+            <div class="win-chrome" data-window="finder">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('finder')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('finder')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('finder')"></button>
+                </div>
+                <div class="win-toolbar">
+                    <div class="toolbar-nav">
+                        <button class="tb-btn" id="finder-back" onclick="finderBack()" disabled><svg width="16"
+                                height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg></button>
+                        <button class="tb-btn" id="finder-fwd" onclick="finderForward()" disabled><svg width="16"
+                                height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg></button>
+                    </div>
+                </div>
+                <div class="win-title">Finder</div>
+            </div>
+            <div class="win-body" style="padding:0">
+                <div class="finder-layout">
+                    <div class="finder-sidebar" id="finder-sidebar">
+                        <div class="fs-section">
+                            <div class="fs-label">Favorites</div>
+                            <button class="fs-item active" onclick="navigateFinder('recent')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <path d="M12 7v5l3 3" />
+                                </svg>
+                                Recent
+                            </button>
+                            <button class="fs-item" onclick="navigateFinder('applications')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#42A5F5"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                                    <rect x="14" y="14" width="7" height="7" rx="1" />
+                                </svg>
+                                Applications
+                            </button>
+                            <button class="fs-item" onclick="navigateFinder('desktop')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="14" rx="2" />
+                                    <path d="M8 21h8" />
+                                    <path d="M10 17v4" />
+                                    <path d="M14 17v4" />
+                                </svg>
+                                Desktop
+                            </button>
+                            <button class="fs-item" onclick="navigateFinder('documents')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#42A5F5"
+                                    stroke-width="2">
+                                    <path d="M7 3h8l4 4v14H7z" />
+                                    <path d="M15 3v4h4" />
+                                </svg>
+                                Documents
+                            </button>
+                            <button class="fs-item" onclick="navigateFinder('downloads')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#42A5F5"
+                                    stroke-width="2">
+                                    <path d="M12 3v11" />
+                                    <path d="M8 11l4 4 4-4" />
+                                    <rect x="4" y="18" width="16" height="3" rx="1.5" />
+                                </svg>
+                                Downloads
+                            </button>
+                        </div>
+                        <div class="fs-section">
+                            <div class="fs-label">Tags</div>
+                            <button class="fs-item" onclick="filterByTag('red')"><span class="fs-tag"
+                                    style="background:#FF453A"></span> Important</button>
+                            <button class="fs-item" onclick="filterByTag('orange')"><span class="fs-tag"
+                                    style="background:#FF9F0A"></span> Work</button>
+                            <button class="fs-item" onclick="filterByTag('green')"><span class="fs-tag"
+                                    style="background:#30D158"></span> Personal</button>
+                            <button class="fs-item" onclick="filterByTag('blue')"><span class="fs-tag"
+                                    style="background:#007AFF"></span> Reference</button>
+                        </div>
+                    </div>
+                    <div class="finder-main">
+                        <div class="finder-toolbar">
+                            <div class="finder-toolbar-left">
+                                <div class="finder-view-toggle">
+                                    <button class="tb-btn finder-view-btn active" id="view-list"
+                                        onclick="setFinderView('list')" title="List view">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <path d="M4 6h16" />
+                                            <path d="M4 12h16" />
+                                            <path d="M4 18h16" />
+                                        </svg>
+                                    </button>
+                                    <button class="tb-btn finder-view-btn" id="view-icon"
+                                        onclick="setFinderView('icon')" title="Icon view">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <rect x="4" y="4" width="6" height="6" rx="1" />
+                                            <rect x="14" y="4" width="6" height="6" rx="1" />
+                                            <rect x="4" y="14" width="6" height="6" rx="1" />
+                                            <rect x="14" y="14" width="6" height="6" rx="1" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="finder-toolbar-right">
+                                <input id="finder-search" type="text" class="finder-search-input" placeholder="Search"
+                                    autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="finder-colheader finder-colheader-list"><span>Name</span><span>Date
+                                Modified</span><span>Size</span><span>Kind</span></div>
+                        <div class="finder-content" id="finder-content"></div>
+                        <div class="finder-statusbar" id="finder-statusbar">0 items</div>
+                    </div>
+                </div>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- SAFARI -->
+        <div class="window" id="window-safari" style="top:50px;left:160px;width:900px;height:580px">
+            <div class="win-chrome" data-window="safari">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('safari')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('safari')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('safari')"></button>
+                </div>
+                <div class="win-toolbar" style="gap:8px">
+                    <div id="safari-tabs" style="display:flex;gap:2px;flex:1;overflow:hidden"></div>
+                    <button class="tb-btn" onclick="addSafariTab()" style="font-size:16px">+</button>
+                </div>
+                <div class="win-title">Safari</div>
+            </div>
+            <div class="safari-url-bar">
+                <button class="safari-url-btn" onclick="safariGoBack()" title="Back">‹</button>
+                <button class="safari-url-btn" onclick="safariGoForward()" title="Forward">›</button>
+                <input type="text" id="safari-url" class="safari-url-input" placeholder="Search or enter URL"
+                    onkeydown="if(event.key==='Enter') safariNavigateOrSearch(this.value)">
+            </div>
+            <div class="win-body" id="safari-content" style="background:rgba(35,35,38,.85);padding:0"></div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- TERMINAL -->
+        <div class="window" id="window-terminal" style="top:80px;left:200px;width:620px;height:440px">
+            <div class="win-chrome win-chrome-dark" data-window="terminal">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('terminal')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('terminal')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('terminal')"></button>
+                </div>
+                <div class="win-title">prowiddan-GPT — Terminal</div>
+            </div>
+            <div class="win-body terminal-body" id="terminal-body">
+                <div id="term-output"></div>
+                <div class="term-input-row">
+                    <span class="term-prompt">you →</span>
+                    <input type="text" class="term-input" id="term-in" placeholder="Ask me anything..."
+                        spellcheck="false" autocomplete="off">
+                </div>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- NOTES -->
+        <div class="window" id="window-notes" style="top:70px;left:180px;width:800px;height:550px">
+            <div class="win-chrome" data-window="notes">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('notes')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('notes')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('notes')"></button>
+                </div>
+                <div class="win-title">Notes</div>
+            </div>
+            <div class="win-body" style="padding:0">
+                <div class="notes-toolbar">
+                    <div class="nt-left">
+                        <button class="tb-btn" onclick="toggleNotesSidebar()" title="Toggle Sidebar">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <line x1="9" y1="3" x2="9" y2="21" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="nt-right">
+                        <div class="nt-search-wrap">
+                            <span class="nt-search-icon">🔍</span>
+                            <input type="text" class="nt-search" placeholder="Search" oninput="searchNotes(this.value)">
+                        </div>
+                    </div>
+                </div>
+                <div class="notes-layout">
+                    <div class="notes-sidebar" id="notes-sidebar"></div>
+                    <div class="notes-main">
+                        <div id="notes-content-header" class="notes-date-header"></div>
+                        <div id="notes-content" class="notes-editor">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="window" id="window-settings" style="top:55px;left:220px;width:720px;height:500px">
+            <div class="win-chrome" data-window="settings">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('settings')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('settings')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('settings')"></button>
+                </div>
+                <div class="win-title">System Settings</div>
+            </div>
+            <div class="win-body" style="padding:0">
+                <div style="display:flex;height:100%">
+                    <div class="settings-sidebar" id="settings-sidebar"></div>
+                    <div class="settings-body" id="settings-panel" style="flex:1"></div>
+                </div>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- GITHUB -->
+        <div class="window" id="window-github" style="top:65px;left:240px;width:700px;height:520px">
+            <div class="win-chrome" data-window="github">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('github')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('github')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('github')"></button>
+                </div>
+                <div class="win-title">GitHub</div>
+            </div>
+            <div class="win-body github-body" id="github-body"></div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- SPOTIFY (Native app layout) -->
+        <div class="window" id="window-spotify" style="top:50px;left:260px;width:900px;height:620px">
+            <div class="win-chrome win-chrome-spotify" data-window="spotify">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('spotify')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('spotify')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('spotify')"></button>
+                </div>
+                <div class="win-title">Spotify</div>
+                <div class="win-chrome-ext">
+                    <button class="win-chrome-btn sp-redirect-btn"
+                        onclick="window.open('https://open.spotify.com/user/31fjzhhpat6yhrltgnz42uuq2aii?si=c63f7491e0d44a4f', '_blank')">
+                        <span>↗</span> Open Profile
+                    </button>
+                </div>
+            </div>
+            <div class="win-body" style="padding:0; background:#000; overflow:hidden;">
+                <iframe style="border:none" src="https://open.spotify.com/embed/user/31fjzhhpat6yhrltgnz42uuq2aii"
+                    width="100%" height="100%" frameBorder="0" allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"></iframe>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- CALCULATOR -->
+        <div class="window" id="window-calculator" style="top:120px;left:500px;width:560px;height:380px">
+            <div class="win-chrome" data-window="calculator">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('calculator')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('calculator')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('calculator')"></button>
+                </div>
+                <div class="win-title">Calculator</div>
+            </div>
+            <div class="win-body calc-body">
+                <div class="calc-display" id="calc-display">0</div>
+                <div class="calc-keys scientific">
+                    <!-- Scientific part -->
+                    <button class="ck ck-scientific" onclick="calcBtn('(')">(</button>
+                    <button class="ck ck-scientific" onclick="calcBtn(')')">)</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('mc')">mc</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('m+')">m+</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('m-')">m-</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('mr')">mr</button>
+
+                    <!-- Standard Row 1 -->
+                    <button class="ck ck-fn" onclick="calcBtn('C')">AC</button>
+                    <button class="ck ck-fn" onclick="calcBtn('negate')">±</button>
+                    <button class="ck ck-fn" onclick="calcBtn('%')">%</button>
+                    <button class="ck ck-op" onclick="calcBtn('/')">÷</button>
+
+                    <!-- Row 2 -->
+                    <button class="ck ck-scientific" onclick="calcBtn('2nd')">2nd</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('x2')">x²</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('x3')">x³</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('xy')">xʸ</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('ex')">eˣ</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('10x')">10ˣ</button>
+                    <button class="ck" onclick="calcBtn('7')">7</button>
+                    <button class="ck" onclick="calcBtn('8')">8</button>
+                    <button class="ck" onclick="calcBtn('9')">9</button>
+                    <button class="ck ck-op" onclick="calcBtn('*')">×</button>
+
+                    <!-- Row 3 -->
+                    <button class="ck ck-scientific" onclick="calcBtn('1/x')">1/x</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('sqrt')">²√x</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('cbrt')">³√x</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('yroot')">ʸ√x</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('ln')">ln</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('log')">log₁₀</button>
+                    <button class="ck" onclick="calcBtn('4')">4</button>
+                    <button class="ck" onclick="calcBtn('5')">5</button>
+                    <button class="ck" onclick="calcBtn('6')">6</button>
+                    <button class="ck ck-op" onclick="calcBtn('-')">−</button>
+
+                    <!-- Row 4 -->
+                    <button class="ck ck-scientific" onclick="calcBtn('fact')">x!</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('sin')">sin</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('cos')">cos</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('tan')">tan</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('e')">e</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('ee')">EE</button>
+                    <button class="ck" onclick="calcBtn('1')">1</button>
+                    <button class="ck" onclick="calcBtn('2')">2</button>
+                    <button class="ck" onclick="calcBtn('3')">3</button>
+                    <button class="ck ck-op" onclick="calcBtn('+')">+</button>
+
+                    <!-- Row 5 -->
+                    <button class="ck ck-scientific" onclick="calcBtn('rad')">Rad</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('sinh')">sinh</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('cosh')">cosh</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('tanh')">tanh</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('pi')">π</button>
+                    <button class="ck ck-scientific" onclick="calcBtn('rand')">Rand</button>
+                    <button class="ck ck-zero" onclick="calcBtn('0')">0</button>
+                    <button class="ck" onclick="calcBtn('.')">.</button>
+                    <button class="ck ck-op" onclick="calcBtn('=')">=</button>
+                </div>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- MAIL -->
+        <div class="window" id="window-mail" style="top:75px;left:280px;width:560px;height:420px">
+            <div class="win-chrome" data-window="mail">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('mail')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('mail')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('mail')"></button>
+                </div>
+                <div class="win-title">New Message</div>
+            </div>
+            <div class="win-body mail-body">
+                <div class="mail-row"><label>To:</label><span class="mail-to">sujayramprasad@gmail.com</span></div>
+                <div class="mail-row"><label>Subject:</label><input type="text" class="mail-in"
+                        placeholder="Got a project in mind?"></div>
+                <textarea class="mail-textarea" placeholder="Write your message here..."></textarea>
+                <div class="mail-footer">
+                    <div class="mail-socials">
+                        <a class="social-btn" href="https://github.com/ProWiddan" target="_blank" title="GitHub"><svg
+                                width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg></a>
+                        <a class="social-btn" href="https://www.linkedin.com/in/sujayram-prasad-0b5a61282/"
+                            target="_blank" title="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg></a>
+                        <a class="social-btn" href="https://x.com/SujayramPrasad" target="_blank"
+                            title="X (Twitter)"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg></a>
+                        <a class="social-btn" href="https://www.instagram.com/sujayram_prasad/" target="_blank"
+                            title="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg></a>
+                        <a class="social-btn" href="https://discordapp.com/users/1175860358104219710" target="_blank"
+                            title="Discord"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M20.317 4.37a19.79 19.79 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.618-1.25.077.077 0 00-.079-.037A19.74 19.74 0 003.677 4.37a.07.07 0 00-.032.028C.533 9.046-.32 13.58.099 18.058a.082.082 0 00.031.056 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.042-.106 13.11 13.11 0 01-1.872-.892.077.077 0 01-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 01.078-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.009c.12.099.246.198.373.292a.077.077 0 01-.006.127 12.3 12.3 0 01-1.873.892.076.076 0 00-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 00.084.029 19.9 19.9 0 006.002-3.03.077.077 0 00.032-.055c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.029z" />
+                            </svg></a>
+                        <span style="font-size: 8px; opacity: 0.6; margin-left: 8px;">follow for more</span>
+                    </div>
+                    <button class="btn-primary" onclick="sendMail()"><svg width="14" height="14" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg> Send</button>
+                </div>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="window" id="window-preview" style="top:100px;left:300px;width:500px;height:400px">
+            <div class="win-chrome" data-window="preview">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('preview')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('preview')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('preview')"></button>
+                </div>
+                <div class="win-title" id="preview-title">Preview</div>
+            </div>
+            <div class="win-body" id="preview-content" style="padding:24px"></div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- DISCORD -->
+        <div class="window" id="window-discord" style="top:50px;left:200px;width:900px;height:560px">
+            <div class="win-chrome" data-window="discord" style="background:rgba(30,31,34,.9)">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('discord')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('discord')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('discord')"></button>
+                </div>
+                <div class="win-title">Discord</div>
+            </div>
+            <div class="win-body" style="padding:0;background:rgba(30,31,34,.98)">
+                <iframe src="https://discord.com/app" style="width:100%;height:100%;border:none"
+                    allow="microphone; camera"></iframe>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- CHESS -->
+        <div class="window" id="window-chess" style="top:40px;left:150px;width:800px;height:580px">
+            <div class="win-chrome" data-window="chess">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('chess')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('chess')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('chess')"></button>
+                </div>
+                <div class="win-title">Chess</div>
+            </div>
+            <div class="win-body game-body" id="chess-body" style="padding:0;overflow:hidden"></div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- 2048 -->
+        <div class="window" id="window-game2048" style="top:50px;left:180px;width:400px;height:500px">
+            <div class="win-chrome" data-window="game2048">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('game2048')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('game2048')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('game2048')"></button>
+                </div>
+                <div class="win-title">2048</div>
+            </div>
+            <div class="win-body game-body" id="game2048-body"></div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- FLAPPY BIRD -->
+        <div class="window" id="window-flappy" style="top:60px;left:200px;width:400px;height:520px">
+            <div class="win-chrome" data-window="flappy">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('flappy')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('flappy')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('flappy')"></button>
+                </div>
+                <div class="win-title">Flappy Bird</div>
+            </div>
+            <div class="win-body game-body" id="flappy-body"></div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- TETRIS -->
+        <div class="window" id="window-tetris" style="top:40px;left:220px;width:360px;height:560px">
+            <div class="win-chrome" data-window="tetris">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('tetris')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('tetris')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('tetris')"></button>
+                </div>
+                <div class="win-title">Tetris</div>
+            </div>
+            <div class="win-body game-body" id="tetris-body"></div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- SNAKE -->
+        <div class="window" id="window-snake" style="top:50px;left:180px;width:440px;height:500px">
+            <div class="win-chrome" data-window="snake">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('snake')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('snake')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('snake')"></button>
+                </div>
+                <div class="win-title">Snake</div>
+            </div>
+            <div class="win-body game-body" id="snake-body"></div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- ACHIEVEMENTS APP -->
+        <div class="window" id="window-achievements" style="top:50px;left:200px;width:600px;height:500px">
+            <div class="win-chrome" data-window="achievements">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('achievements')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('achievements')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('achievements')"></button>
+                </div>
+                <div class="win-title">Achievements</div>
+            </div>
+            <div class="win-body achievements-app-body" id="achievements-app-body">
+                <div class="ach-header">
+                    <div class="ach-stats">
+                        <div class="ach-stat-item">
+                            <span class="ach-stat-val" id="ach-total-count">0</span>
+                            <span class="ach-stat-label">Total</span>
+                        </div>
+                        <div class="ach-stat-item">
+                            <span class="ach-stat-val" id="ach-unlocked-count">0</span>
+                            <span class="ach-stat-label">Unlocked</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="achievements-list-full" id="achievements-list-full"></div>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- CAMERA -->
+        <div class="window" id="window-camera" style="top:50px;left:200px;width:640px;height:480px">
+            <div class="win-chrome" data-window="camera" style="background:rgba(0,0,0,.95)">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('camera')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('camera')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('camera')"></button>
+                </div>
+                <div class="win-title">Camera</div>
+            </div>
+            <div class="win-body" id="camera-body" style="padding:0;position:relative;overflow:hidden;background:#000">
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+
+        <!-- CALENDAR -->
+        <div class="window" id="window-calendar" style="top:40px;left:220px;width:900px;height:650px">
+            <div class="win-chrome" data-window="calendar">
+                <div class="traffic-lights">
+                    <button class="tl tl-close" onclick="closeWindow('calendar')"></button>
+                    <button class="tl tl-min" onclick="minimizeWindow('calendar')"></button>
+                    <button class="tl tl-max" onclick="maximizeWindow('calendar')"></button>
+                </div>
+                <div class="win-title">Calendar</div>
+            </div>
+            <div class="win-body" style="padding:0; background:#fff; overflow:hidden; position:relative;">
+                <iframe
+                    src="https://calendar.google.com/calendar/embed?src=e91df4d25288c1e91499fbb8bf4e10a14850713c3f3136fd47a31ee08e2743fd%40group.calendar.google.com&src=b2ebd9671ba5ee73b5b5e177164dc08a7e37216ea33fde133bb7ff7b5bd957a8%40group.calendar.google.com&src=sujayramprasad%40gmail.com&ctz=Asia%2FMuscat&hl=en&showTitle=0&showNav=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0"
+                    style="border:0; width:100%; height:calc(100% + 30px); margin-top:-1px;" frameborder="0"
+                    scrolling="no"></iframe>
+                <div style="position:absolute; bottom:0; left:0; width:100%; height:30px; background:#fff; z-index:5;">
+                </div>
+            </div>
+            <div class="resize-handle resize-r"></div>
+            <div class="resize-handle resize-b"></div>
+            <div class="resize-handle resize-br"></div>
+            <div class="resize-handle resize-l"></div>
+            <div class="resize-handle resize-bl"></div>
+        </div>
+    </div>
+
+    <!-- LAUNCHPAD -->
+    <div id="launchpad" class="hidden">
+        <div class="lp-bg" onclick="closeLaunchpad()"></div>
+        <div class="lp-content">
+            <input type="text" class="lp-search" id="lp-search" placeholder="Search apps..."
+                oninput="filterLaunchpad(this.value)">
+            <div class="lp-grid" id="lp-grid"></div>
+        </div>
+    </div>
+
+    <!-- DOCK -->
+    <div id="dock">
+        <div class="dock-shelf" id="dock-shelf">
+            <button class="dock-item running" data-app="finder" onclick="toggleApp('finder')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/bhhvTp8oqu/lowResPngFile_8f73531df26c05ab58877c5f889f84cd_bhhvTp8oqu.png"
+                    alt="Finder">
+                <span class="dock-tooltip">Finder</span>
+            </button>
+            <button class="dock-item" data-app="launchpad" onclick="toggleLaunchpad()">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/ncy8MiCAOA/lowResPngFile_0f531e205b4ebaf7ab0b01d1bd6040cb_low_res_Launchpad__MacOS_Tahoe_.png"
+                    alt="Launchpad">
+                <span class="dock-tooltip">Launchpad</span>
+            </button>
+            <button class="dock-item" data-app="safari" onclick="toggleApp('safari')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/LWzZ6l63vI/lowResPngFile_a1dd6c2143868c36ab74dc1129da983b_LWzZ6l63vI.png"
+                    alt="Safari">
+                <span class="dock-tooltip">Safari</span>
+            </button>
+            <button class="dock-item" data-app="mail" onclick="toggleApp('mail')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/OABVbEbk1D/lowResPngFile_1b3cda920534d66fcf25849afdeee35b_low_res_Mail__MacOS_Tahoe_.png"
+                    alt="Mail">
+                <span class="dock-tooltip">Mail</span>
+            </button>
+            <button class="dock-item" data-app="notes" onclick="toggleApp('notes')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/aRx5cGokA4/lowResPngFile_3775aa86374eb5aa9ba0450d5c9d7794_aRx5cGokA4.png"
+                    alt="Notes">
+                <span class="dock-tooltip">Notes</span>
+            </button>
+            <button class="dock-item" data-app="calendar" onclick="toggleApp('calendar')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/XP2RCmzU3F/lowResPngFile_0e7336c7e247fc8640d63def8958d82e_low_res_Google_Calender.png"
+                    alt="Calendar">
+                <span class="dock-tooltip">Calendar</span>
+            </button>
+            <div class="dock-sep"></div>
+            <button class="dock-item" data-app="discord" onclick="toggleApp('discord')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/VGpMiSdUqI/lowResPngFile_8dbf13cc942b8032b823a9b77db7735e_low_res_Discord__Dark___macOS_26.2__.png"
+                    alt="Discord">
+                <span class="dock-tooltip">Discord</span>
+            </button>
+            <button class="dock-item" data-app="github" onclick="toggleApp('github')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/AhTpsJCAbn/lowResPngFile_f024fedc7c28b04afb3e45d69ad10be2_low_res_GitHub_Desktop__clear__dark_.png"
+                    alt="GitHub">
+                <span class="dock-tooltip">GitHub</span>
+            </button>
+            <button class="dock-item" data-app="spotify" onclick="toggleApp('spotify')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/AiVIJCBk89/lowResPngFile_8d99b5f5dec64894fe0f92479fd69be2_AiVIJCBk89.png"
+                    alt="Spotify">
+                <span class="dock-tooltip">Spotify</span>
+            </button>
+            <button class="dock-item" data-app="terminal" onclick="toggleApp('terminal')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/pqhtMOGG97/lowResPngFile_44521cff49a09db9c074eaba5b796ab8_pqhtMOGG97.png"
+                    alt="Terminal">
+                <span class="dock-tooltip">Terminal</span>
+            </button>
+            <div class="dock-sep"></div>
+            <button class="dock-item" data-app="calculator" onclick="toggleApp('calculator')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/0AdfjY0BQw/lowResPngFile_59c4de81f50281ea69caf6766ba65f39_0AdfjY0BQw.png"
+                    alt="Calculator">
+                <span class="dock-tooltip">Calculator</span>
+            </button>
+            <button class="dock-item" data-app="settings" onclick="toggleApp('settings')">
+                <img class="dock-img"
+                    src="https://s3.macosicons.com/macosicons/icons/4FTDfMVfPo/lowResPngFile_cf42e4b2bb0951eaeac99d7fdd84865b_low_res_Settings.png"
+                    alt="Settings">
+                <span class="dock-tooltip">Settings</span>
+            </button>
+        </div>
+    </div>
+
+    </div><!-- end desktop -->
+
+    <script src="script.js"></script>
+    <div id="notification-container"></div>
+</body>
+
+</html>
