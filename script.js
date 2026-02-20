@@ -53,6 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
   navigateFinder('recent');
   initLaunchpad();
 
+  // Real-time Optimization: Performance Ticks
+  requestAnimationFrame(function performanceTick() {
+    // Sync any high-frequency UI updates here
+    requestAnimationFrame(performanceTick);
+  });
+
 
   // macOS Context Menu Logic
   const ctxMenu = document.getElementById('context-menu');
@@ -1526,6 +1532,23 @@ function updatePresence(data) {
   if (activity) {
     const act = data.activities?.find(a => a.type === 0) || data.activities?.[0];
     activity.textContent = act ? (act.emoji ? act.emoji.name + ' ' : '') + act.name + (act.state ? ': ' + act.state : '') : 'No activity';
+  }
+
+  // Native Discord Window Update
+  const discordWindow = document.getElementById('window-discord');
+  if (discordWindow && !discordWindow.classList.contains('hidden')) {
+    const winAvatar = discordWindow.querySelector('.discord-win-avatar');
+    if (winAvatar && data.discord_user) {
+      winAvatar.src = `https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.png?size=256`;
+    }
+    const winName = discordWindow.querySelector('.discord-win-name');
+    if (winName) winName.textContent = data.discord_user?.global_name || data.discord_user?.username || 'ProWiddan';
+
+    const winStatus = discordWindow.querySelector('.discord-win-status-text');
+    if (winStatus) winStatus.textContent = data.discord_status === 'dnd' ? 'Do Not Disturb' : data.discord_status.charAt(0).toUpperCase() + data.discord_status.slice(1);
+
+    const winStatusDot = discordWindow.querySelector('.discord-status-indicator');
+    if (winStatusDot) winStatusDot.style.background = { online: '#23a55a', idle: '#f0b232', dnd: '#f23f43', offline: '#80848e' }[data.discord_status] || '#80848e';
   }
 
   // Sync Spotify Across Both

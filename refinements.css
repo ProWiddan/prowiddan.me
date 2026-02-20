@@ -373,3 +373,64 @@ textarea,
     font-weight: 200 !important;
     font-size: 48px !important;
 }
+
+.discord-native-overlay {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background: #111214;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s var(--smooth);
+}
+
+.discord-native-overlay:hover {
+    transform: translateY(-4px);
+}
+
+.discord-banner {
+    height: 60px;
+    background: var(--blue);
+}
+
+.discord-win-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 6px solid #111214;
+    margin-top: -40px;
+    margin-left: 16px;
+    background: #111214;
+    object-fit: cover;
+}
+
+.discord-profile-details {
+    padding: 16px;
+}
+
+.discord-win-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+    border: none !important;
+}
+
+.discord-win-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #b5bac1;
+}
+
+.discord-status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #23a55a;
+}

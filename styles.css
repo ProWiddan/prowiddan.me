@@ -123,28 +123,38 @@
   filter: hue-rotate(260deg) saturate(1.1);
 }
 
-/* Global Vars */
 :root {
   --sf: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
   --mono: 'SF Mono', SFMono-Regular, 'JetBrains Mono', Menlo, Monaco, Consolas, monospace;
-  --glass: rgba(30, 30, 35, var(--glass-opacity));
-  --glass-border: rgba(255, 255, 255, .1);
+  --glass: rgba(30, 30, 35, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.12);
   --blur: 40px;
-  --blur-heavy: 60px;
   --red: #FF5F57;
   --yellow: #FEBC2E;
   --green: #28C840;
   --blue: #007AFF;
   --purple: #BF5AF2;
   --teal: #64D2FF;
-  --t1: rgba(255, 255, 255, .95);
-  --t2: rgba(255, 255, 255, .6);
-  --t3: rgba(255, 255, 255, .35);
-  --spring: cubic-bezier(.175, .885, .32, 1.275);
-  --smooth: cubic-bezier(.4, 0, .2, 1);
-  --dock-size: 58px;
-  /* Slightly larger for modern macOS look */
-  --glass-opacity: 0.55;
+  --t1: rgba(255, 255, 255, 0.95);
+  --t2: rgba(255, 255, 255, 0.6);
+  --t3: rgba(255, 255, 255, 0.35);
+  --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --premium-blur: blur(40px) saturate(200%);
+}
+
+/* Global Performance Optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.window,
+#dock,
+.dropdown {
+  will-change: transform, opacity;
 }
 
 *,
