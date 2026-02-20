@@ -338,7 +338,7 @@ body,
 }
 
 /* MOBILE ORIENTATION WARNING */
-/* MOBILE FALLBACK SCREEN */
+/* MOBILE FALLBACK SCREEN - LINKTREE STYLE */
 #mobile-fallback {
   position: fixed;
   inset: 0;
@@ -346,85 +346,136 @@ body,
   background: #000;
   color: #fff;
   display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Glassmorphism Overlay */
+#mobile-fallback::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.mf-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: mfEnter 0.8s var(--smooth) forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes mfEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mf-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.mf-avatar {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  margin-bottom: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  object-fit: cover;
+}
+
+.mf-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.mf-badge {
+  background: rgba(0, 122, 255, 0.2);
+  color: #007AFF;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.mf-message {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin-bottom: 32px;
+  padding: 0 10px;
+  font-weight: 400;
+}
+
+.mf-links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.mf-link-item {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 32px;
-}
-
-.mf-content {
-  max-width: 360px;
-  animation: fadeIn 0.8s var(--smooth);
-}
-
-.mf-icon {
-  font-size: 64px;
-  margin-bottom: 24px;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
-}
-
-.mf-content h2 {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.mf-content p {
-  font-size: 15px;
-  color: #888;
-  line-height: 1.5;
-  margin-bottom: 32px;
-}
-
-.mf-links {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-
-.mf-btn {
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px;
+  border-radius: 16px;
   text-decoration: none;
-  transition: transform 0.2s;
-  background: var(--blue);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  transition: all 0.2s var(--smooth);
 }
 
-.mf-btn.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: none;
+.mf-link-item:hover,
+.mf-link-item:active {
+  background: rgba(255, 255, 255, 0.12);
+  transform: scale(0.98);
 }
 
-.mf-btn:active {
-  transform: scale(0.95);
+.mf-link-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
 }
 
-.ow-content p {
-  color: var(--t2);
-  font-size: 16px;
-  max-width: 280px;
-  line-height: 1.5;
+.mf-link-item span:last-child {
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0.9;
 }
 
-/* Show warning only in Portrait on small screens */
-@media (max-width: 1024px) and (orientation: portrait) {
-  #orientation-warning {
-    display: flex;
-  }
-
-  #boot-screen,
-  #desktop,
-  #tutorial-overlay,
-  #context-menu,
-  #notification-container {
-    display: none !important;
-  }
+.mf-footer {
+  margin-top: 32px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.3);
 }
+
+
 
 /* DESKTOP ICONS */
 #desktop-icons {
