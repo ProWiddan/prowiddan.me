@@ -129,6 +129,7 @@
   --glass: rgba(30, 30, 35, 0.45);
   --glass-border: rgba(255, 255, 255, 0.12);
   --blur: 40px;
+  --blur-heavy: 60px;
   --red: #FF5F57;
   --yellow: #FEBC2E;
   --green: #28C840;
@@ -140,21 +141,33 @@
   --t3: rgba(255, 255, 255, 0.35);
   --spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --apple-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --premium-blur: blur(40px) saturate(200%);
 }
 
-/* Global Performance Optimizations */
+/* Global Performance & Smoothness */
 * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
+  text-rendering: optimizeLegibility;
 }
 
 .window,
 #dock,
-.dropdown {
+.dropdown,
+#menubar,
+#launchpad,
+.dock-item .dock-img,
+.tutorial-card,
+.achievement-notification {
   will-change: transform, opacity;
+  transform: translateZ(0);
+  /* force GPU compositing */
+}
+
+/* Contain layout for windows to prevent global repaints */
+.window {
+  contain: layout style;
 }
 
 *,
@@ -173,7 +186,8 @@ body {
   font-family: var(--sf);
   -webkit-font-smoothing: antialiased;
   background: #000;
-  /* Prevent white flashes */
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Proper macOS Cursors */
@@ -324,36 +338,70 @@ body,
 }
 
 /* MOBILE ORIENTATION WARNING */
-#orientation-warning {
+/* MOBILE FALLBACK SCREEN */
+#mobile-fallback {
   position: fixed;
   inset: 0;
-  z-index: 100000;
+  z-index: 999999;
   background: #000;
-  display: none;
-  /* Shown via media query */
   color: #fff;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 24px;
+  padding: 32px;
 }
 
-.ow-content {
+.mf-content {
+  max-width: 360px;
   animation: fadeIn 0.8s var(--smooth);
 }
 
-.ow-icon {
+.mf-icon {
   font-size: 64px;
   margin-bottom: 24px;
   filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
 }
 
-.ow-content h2 {
-  font-size: 28px;
+.mf-content h2 {
+  font-size: 24px;
   font-weight: 700;
   margin-bottom: 12px;
-  letter-spacing: -0.5px;
+}
+
+.mf-content p {
+  font-size: 15px;
+  color: #888;
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+
+.mf-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.mf-btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform 0.2s;
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+.mf-btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+}
+
+.mf-btn:active {
+  transform: scale(0.95);
 }
 
 .ow-content p {
@@ -4467,70 +4515,41 @@ body,
   background: rgba(255, 255, 255, .2)
 }
 
-/* RESPONSIVE — Phone & Tablet Support */
-@media (max-width: 768px) {
-  #desktop-icons {
-    display: none;
+/* RESPONSIVE — Mobile Fallback (< 768px, phones) */
+@media (max-width: 767px) {
+  #mobile-fallback {
+    display: flex;
   }
 
-  #widgets {
-    display: none;
-  }
-
-  .window {
-    width: 96vw !important;
-    height: 85vh !important;
-    top: 40px !important;
-    left: 2vw !important;
-    border-radius: 12px !important;
-  }
-
-  .lp-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    width: 90vw;
-  }
-
-  .lp-search {
-    width: 80%;
-  }
-
-  #menubar .mb-item:not(.mb-apple):not(.mb-appname) {
-    display: none;
-  }
-
-  #menubar .mb-right {
-    gap: 10px;
-  }
-
-  #mb-clock {
-    font-size: 11px;
-    letter-spacing: -0.2px;
-  }
-
-  #dock {
-    width: 95%;
-    bottom: 8px;
-  }
-
-  .dock-shelf {
-    gap: 4px;
-    padding: 6px;
-    max-width: 100%;
-    overflow-x: auto;
-    justify-content: center;
-  }
-
-  :root {
-    --dock-size: 42px;
-  }
-
-  .tutorial-card {
-    width: 90vw;
-    padding: 20px;
+  #desktop,
+  #boot-screen,
+  #menubar,
+  #dock,
+  #tutorial-overlay,
+  #notification-container {
+    display: none !important;
   }
 }
 
+/* Orientation Warning for Tablets/Pad (Only shows if explicitly wanted, but user said Laptop/iPad is ok) */
+/* We remove strict orientation warning for now as iPad works in both. */
+@media (max-width: 1024px) {
+
+  /* Adjust window sizes for tablets */
+  .window {
+    width: 90vw !important;
+    height: 80vh !important;
+    left: 5vw !important;
+    top: 50px !important;
+  }
+
+  .lp-grid {
+    grid-template-columns: repeat(4, 1fr);
+    width: 85vw;
+  }
+}
+
+/* Short screens (Landscape) */
 @media (orientation: landscape) and (max-height: 500px) {
   .window {
     height: 75vh !important;
@@ -4694,6 +4713,12 @@ body,
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 

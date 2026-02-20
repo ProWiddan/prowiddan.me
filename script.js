@@ -190,6 +190,21 @@ function initBoot() {
   // Pre-apply theme and wallpaper to prevent flashing
   applyAllSettings();
 
+  // Attempt auto-fullscreen (soft request)
+  try {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {
+        // Silently fail if blocked (user requested "dont force")
+        // We can add a one-time click listener to retry
+        const oneTime = () => {
+          document.documentElement.requestFullscreen().catch(() => { });
+          document.removeEventListener('click', oneTime);
+        };
+        document.addEventListener('click', oneTime);
+      });
+    }
+  } catch (e) { }
+
   fill.style.transition = 'width 1.5s ease-in-out';
   setTimeout(() => fill.style.width = '100%', 100);
 
@@ -426,6 +441,7 @@ function openWindow(id) {
   if (id === 'tetris') { initTetris(); setupGameScaling('tetris'); }
   if (id === 'snake') { initSnake(); setupGameScaling('snake'); }
   if (id === 'camera') initCamera();
+  if (id === 'github') initGitHub();
   if (id === 'settings') initSettings();
 }
 
@@ -502,25 +518,41 @@ function focusNext() {
   else setAppName('Prowiddan.me');
 }
 
-/* DRAG */
+/* DRAG — RAF-batched for 60fps smoothness */
+let dragRAF = null;
 document.addEventListener('mousedown', e => {
   const chrome = e.target.closest('.win-chrome');
-  if (!chrome || e.target.closest('.traffic-lights') || e.target.closest('.tb-btn')) return;
+  if (!chrome || e.target.closest('.traffic-lights') || e.target.closest('.tb-btn') || e.target.closest('.win-chrome-btn') || e.target.closest('.win-chrome-ext')) return;
   const wid = chrome.dataset.window; const win = document.getElementById('window-' + wid);
   if (!win || win.classList.contains('maximized')) return;
   bringToFront(wid);
   const r = win.getBoundingClientRect();
   dragState = { win, sx: e.clientX, sy: e.clientY, ox: r.left, oy: r.top };
+  win.style.transition = 'none'; // Disable transitions during drag
+  win.style.willChange = 'left, top';
 });
 document.addEventListener('mousemove', e => {
   if (!dragState) return;
-  dragState.win.style.left = (dragState.ox + e.clientX - dragState.sx) + 'px';
-  dragState.win.style.top = Math.max(26, dragState.oy + e.clientY - dragState.sy) + 'px';
+  e.preventDefault();
+  const ds = dragState;
+  if (dragRAF) cancelAnimationFrame(dragRAF);
+  dragRAF = requestAnimationFrame(() => {
+    ds.win.style.left = (ds.ox + e.clientX - ds.sx) + 'px';
+    ds.win.style.top = Math.max(26, ds.oy + e.clientY - ds.sy) + 'px';
+  });
 });
-document.addEventListener('mouseup', () => dragState = null);
+document.addEventListener('mouseup', () => {
+  if (dragState) {
+    dragState.win.style.transition = '';
+    dragState.win.style.willChange = '';
+  }
+  dragState = null;
+  if (dragRAF) { cancelAnimationFrame(dragRAF); dragRAF = null; }
+});
 
-/* RESIZE */
+/* RESIZE — RAF-batched for 60fps smoothness */
 let resizeState = null;
+let resizeRAF = null;
 document.addEventListener('mousedown', e => {
   const handle = e.target.closest('.resize-handle');
   if (!handle || !handle.closest('.window')) return;
@@ -528,18 +560,31 @@ document.addEventListener('mousedown', e => {
   if (win.classList.contains('maximized')) return;
   const r = win.getBoundingClientRect();
   resizeState = { win, handle: handle.className, sx: e.clientX, sy: e.clientY, w: r.width, h: r.height, l: r.left, t: r.top };
+  win.style.transition = 'none';
+  win.style.willChange = 'width, height, left';
 });
 document.addEventListener('mousemove', e => {
   if (!resizeState) return;
-  const { win, handle, sx, sy, w, h, l, t } = resizeState;
-  const dx = e.clientX - sx, dy = e.clientY - sy, minW = 280, minH = 180;
-  if (handle.includes('resize-r')) win.style.width = Math.max(minW, w + dx) + 'px';
-  if (handle.includes('resize-b')) win.style.height = Math.max(minH, h + dy) + 'px';
-  if (handle.includes('resize-br')) { win.style.width = Math.max(minW, w + dx) + 'px'; win.style.height = Math.max(minH, h + dy) + 'px'; }
-  if (handle.includes('resize-l')) { const nw = Math.max(minW, w - dx); win.style.width = nw + 'px'; win.style.left = (l + w - nw) + 'px'; }
-  if (handle.includes('resize-bl')) { const nw = Math.max(minW, w - dx); win.style.width = nw + 'px'; win.style.left = (l + w - nw) + 'px'; win.style.height = Math.max(minH, h + dy) + 'px'; }
+  e.preventDefault();
+  if (resizeRAF) cancelAnimationFrame(resizeRAF);
+  resizeRAF = requestAnimationFrame(() => {
+    const { win, handle, sx, sy, w, h, l, t } = resizeState;
+    const dx = e.clientX - sx, dy = e.clientY - sy, minW = 280, minH = 180;
+    if (handle.includes('resize-r')) win.style.width = Math.max(minW, w + dx) + 'px';
+    if (handle.includes('resize-b')) win.style.height = Math.max(minH, h + dy) + 'px';
+    if (handle.includes('resize-br')) { win.style.width = Math.max(minW, w + dx) + 'px'; win.style.height = Math.max(minH, h + dy) + 'px'; }
+    if (handle.includes('resize-l')) { const nw = Math.max(minW, w - dx); win.style.width = nw + 'px'; win.style.left = (l + w - nw) + 'px'; }
+    if (handle.includes('resize-bl')) { const nw = Math.max(minW, w - dx); win.style.width = nw + 'px'; win.style.left = (l + w - nw) + 'px'; win.style.height = Math.max(minH, h + dy) + 'px'; }
+  });
 });
-document.addEventListener('mouseup', () => resizeState = null);
+document.addEventListener('mouseup', () => {
+  if (resizeState) {
+    resizeState.win.style.transition = '';
+    resizeState.win.style.willChange = '';
+  }
+  resizeState = null;
+  if (resizeRAF) { cancelAnimationFrame(resizeRAF); resizeRAF = null; }
+});
 
 /* ====================== FINDER ====================== */
 const finderData = {
@@ -1565,13 +1610,28 @@ function updatePresence(data) {
 async function initGitHub() {
   const container = document.getElementById('github-body');
   if (!container) return;
+
+  // Show loading state
+  container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px">
+    <div style="width:32px;height:32px;border:3px solid rgba(255,255,255,0.1);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite"></div>
+    <div style="font-size:13px;opacity:0.6">Loading GitHub profile...</div>
+  </div>`;
+
   try {
     const [userRes, reposRes] = await Promise.all([
       fetch(`https://api.github.com/users/${GITHUB_USER}`),
-      fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated`)
+      fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=8`)
     ]);
+
+    if (!userRes.ok || !reposRes.ok) {
+      throw new Error(`API error: ${userRes.status}`);
+    }
+
     const user = await userRes.json();
     const repos = await reposRes.json();
+
+    if (!user || !user.login) throw new Error('Invalid user data');
+
     container.innerHTML = `
       <div class="gh-profile">
         <img class="gh-avatar" src="${user.avatar_url}" alt="">
@@ -1586,14 +1646,25 @@ async function initGitHub() {
       <div class="gh-repos-title">Repositories</div>
       <div class="gh-repos" id="gh-repos"></div>`;
     const reposEl = document.getElementById('gh-repos');
-    (repos.slice(0, 8) || []).forEach(repo => {
-      const el = document.createElement('div'); el.className = 'gh-repo';
-      el.innerHTML = `<h3>${repo.name}</h3><p>${repo.description || 'No description'}</p><div class="gh-repo-meta"><span>${repo.language || '—'}</span><span>★ ${repo.stargazers_count}</span></div>`;
-      el.onclick = () => window.open(repo.html_url, '_blank');
-      reposEl.appendChild(el);
-    });
+    if (Array.isArray(repos)) {
+      repos.forEach(repo => {
+        const el = document.createElement('div'); el.className = 'gh-repo';
+        el.innerHTML = `<h3>${repo.name}</h3><p>${repo.description || 'No description'}</p><div class="gh-repo-meta"><span>${repo.language || '—'}</span><span>★ ${repo.stargazers_count}</span></div>`;
+        el.onclick = () => window.open(repo.html_url, '_blank');
+        reposEl.appendChild(el);
+      });
+    }
   } catch (e) {
-    container.innerHTML = `<div class="gh-profile"><p>Could not load GitHub. <a href="https://github.com/${GITHUB_USER}" target="_blank">Open GitHub</a></p></div>`;
+    console.warn('GitHub init failed:', e);
+    container.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:16px;padding:24px;text-align:center">
+      <div style="font-size:48px">🐙</div>
+      <div style="font-size:15px;font-weight:600">Could not load GitHub</div>
+      <div style="font-size:12px;opacity:0.5;max-width:280px">The GitHub API may be rate-limited. Try again in a moment or visit the profile directly.</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-primary" onclick="initGitHub()">Retry</button>
+        <a class="btn-secondary" href="https://github.com/${GITHUB_USER}" target="_blank" style="text-decoration:none;padding:6px 14px;border-radius:6px;font-size:12px">Open GitHub ↗</a>
+      </div>
+    </div>`;
   }
 }
 

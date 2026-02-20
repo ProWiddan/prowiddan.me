@@ -883,6 +883,7 @@ textarea,
     border-radius: 50%;
 }
 
+
 .yt-back-btn:hover {
     background: rgba(255, 255, 255, 0.1);
 }
@@ -891,4 +892,111 @@ textarea,
     flex: 1;
     width: 100%;
     border: none;
+}
+
+/* ====================== SMOOTHNESS & POLISH ====================== */
+
+/* Smooth scrolling in all window bodies */
+.win-body {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Silky button interactions */
+.btn-primary,
+.btn-secondary {
+    transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.btn-primary:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active,
+.btn-secondary:active {
+    transform: scale(0.97);
+    filter: brightness(0.9);
+}
+
+/* Smooth traffic light hover */
+.tl {
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.tl:hover {
+    transform: scale(1.15);
+}
+
+.tl:active {
+    transform: scale(0.9);
+}
+
+/* GPU-composited dock icons */
+.dock-item .dock-img {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Smoother dock tooltip */
+.dock-tooltip {
+    transition: opacity 0.2s var(--smooth), transform 0.2s var(--smooth);
+}
+
+/* Silky window chrome hover */
+.win-chrome {
+    transition: background 0.2s var(--smooth);
+}
+
+/* Smooth settings nav items */
+.settings-nav-item {
+    transition: background 0.15s var(--smooth), color 0.15s var(--smooth);
+}
+
+/* Smooth Finder items */
+.fr {
+    transition: background 0.12s var(--smooth);
+}
+
+/* Polished scrollbar for dark theme */
+.win-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.win-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.win-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.win-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+    background-clip: padding-box;
+}
+
+/* No text selection flicker during drag */
+.win-chrome {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Subtle hover glow for interactive cards */
+.gh-repo,
+.safari-contact-card,
+.yt-video-card {
+    transition: transform 0.25s var(--smooth), box-shadow 0.25s var(--smooth), background 0.25s var(--smooth);
+}
+
+.gh-repo:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Smoother context menu */
+.context-menu {
+    transition: opacity 0.12s var(--smooth), transform 0.12s var(--smooth) !important;
 }
