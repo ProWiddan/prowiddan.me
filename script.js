@@ -3,7 +3,7 @@
 const DISCORD_ID = '1175860358104219710';
 const MACOS_ICONS = {
   folder: 'https://s3-new.macosicons.com/macosicons/parse/MacOS_Default_Folder_icon_GecwaBmkFQ_lowResPng-6d37abc4ac.png',
-  finder: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Finder_Icon_macOS_Tahoe.png?_=20250922021914',
+  finder: 'https://s3-new.macosicons.com/macosicons/parse/low_res_Finder_macOS_Golden_Gate_0AimK8SW1O-6b9b5704b8.png',
   safari: 'https://s3-new.macosicons.com/macosicons/parse/Safari__MacOS_Tahoe__utug9Rt8g6_lowResPng-e86f84b6e9.png',
   mail: 'https://s3-new.macosicons.com/macosicons/parse/Mail__MacOS_Tahoe__OABVbEbk1D_lowResPng-60a62790fb.png',
   notes: 'https://s3-new.macosicons.com/macosicons/parse/Notes__MacOS_Tahoe__Tn8SuaHtAM_lowResPng-632fb908b1.png',
