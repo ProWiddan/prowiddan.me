@@ -2,23 +2,23 @@
 
 const DISCORD_ID = '1175860358104219710';
 const MACOS_ICONS = {
-  folder: 'https://s3.new.macosicons.com/macosicons/icons/wXACI5GsEd/lowResPngFile_9d588459b96594f563889f10f1002539_wXACI5GsEd.png',
-  finder: 'https://s3-new.macosicons.com/macosicons/parse/low_res_Finder_macOS_Golden_Gate_0AimK8SW1O-6b9b5704b8.png',
-  safari: 'https://s3-new.macosicons.com/macosicons/parse/low_res_Safari_macOS_Golden_Gate_pEXtmNbgY4-f367b41df2.png',
-  mail: 'https://s3-new.macosicons.com/macosicons/parse/low_res_Mail_macOS_Golden_Gate_3BIjmD3GZM-ae5977fd03.png',
-  notes: 'https://s3-new.macosicons.com/macosicons/parse/Notes__MacOS_Tahoe__Tn8SuaHtAM_lowResPng-632fb908b1.png',
-  calculator: 'https://s3-new.macosicons.com/macosicons/parse/Calculator__MacOS_Tahoe__nsriQA1igI_lowResPng-453cda84ba.png',
-  settings: 'https://s3-new.macosicons.com/macosicons/parse/low_res_Settings_macOS_Golden_Gate_iR77bVvZBc-502ef0dc70.png',
-  launchpad: 'https://s3-new.macosicons.com/macosicons/parse/Launchpad__MacOS_Tahoe__ncy8MiCAOA_lowResPng-ffd58d03cd.png',
-  terminal: 'https://s3-new.macosicons.com/macosicons/parse/Terminal_fGnDyYQFwp_lowResPng-1dccfcebca.png',
-  spotify: 'https://s3-new.macosicons.com/macosicons/parse/low_res_Spotify__Golden_Gate__L0SMJ54uBJ-537f9a39f0.png',
-  github: 'https://s3.macosicons.com/macosicons/icons/AhTpsJCAbn/lowResPngFile_f024fedc7c28b04afb3e45d69ad10be2_low_res_GitHub_Desktop__clear__dark_.png',
-  discord: 'https://s3.macosicons.com/macosicons/icons/VGpMiSdUqI/lowResPngFile_8dbf13cc942b8032b823a9b77db7735e_low_res_Discord__Dark___macOS_26.2__.png',
+  folder: 'folder.png',
+  finder: 'finder.png',
+  safari: 'safari.png',
+  mail: 'mail.png',
+  notes: 'notes.png',
+  calculator: 'Calculator.png',
+  settings: 'Settings.png',
+  launchpad: 'Launchpad.png',
+  terminal: 'Terminal.png',
+  spotify: 'Spotify.png',
+  github: 'Github.png',
+  discord: 'discord.png',
   pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
-  camera: 'https://s3.macosicons.com/macosicons/icons/YkTXCN5mt2/lowResPngFile_1eb2d288e5a796340bfe57dbffdd8206_low_res_Camera_Photo_Booth__iOS_18_Dark_.png',
-  chess: 'https://s3.macosicons.com/macosicons/icons/mkFov9ZvXG/lowResPngFile_dc2f0a8c2e0aa37c93fcc10d9cc13754_low_res_Chess__Chess.com_.png',
+  camera: 'camera.png',
+  chess: 'chess.png',
   achievements: 'https://cdn-icons-png.flaticon.com/512/3112/3112946.png',
-  calendar: 'https://s3.macosicons.com/macosicons/icons/XP2RCmzU3F/lowResPngFile_0e7336c7e247fc8640d63def8958d82e_low_res_Google_Calender.png'
+  calendar: 'Google_calender.png'
 };
 const GITHUB_USER = 'ProWiddan';
 const LANYARD_REST = 'https://api.lanyard.rest/v1/users/';
