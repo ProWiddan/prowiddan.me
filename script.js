@@ -2,23 +2,23 @@
 
 const DISCORD_ID = '1175860358104219710';
 const MACOS_ICONS = {
-  folder: 'Folder.png',
-  finder: 'Finder.png',
-  safari: 'Safari.png',
-  mail: 'Mail.png',
-  notes: 'Notes.png',
-  calculator: 'Calculator.png',
-  settings: 'Settings.png',
-  launchpad: 'Launchpad.png',
-  terminal: 'Terminal.png',
-  spotify: 'Spotify.png',
-  github: 'Github.png',
-  discord: 'Discord.png',
+  folder: 'https://s3-new.macosicons.com/macosicons/parse/MacOS_Default_Folder_icon_GecwaBmkFQ_lowResPng-6d37abc4ac.png',
+  finder: 'https://s3-new.macosicons.com/macosicons/parse/Finder__MacOS_Tahoe_Beta_2__RxN9TflwJQ_lowResPng-95aa3b62fc.png',
+  safari: 'https://s3-new.macosicons.com/macosicons/parse/Safari__MacOS_Tahoe__utug9Rt8g6_lowResPng-e86f84b6e9.png',
+  mail: 'https://s3-new.macosicons.com/macosicons/parse/Mail__MacOS_Tahoe__OABVbEbk1D_lowResPng-60a62790fb.png',
+  notes: 'https://s3-new.macosicons.com/macosicons/parse/Notes__MacOS_Tahoe__Tn8SuaHtAM_lowResPng-632fb908b1.png',
+  calculator: 'https://s3-new.macosicons.com/macosicons/parse/Calculator__macOS_Salinas__Ma8ZDRm65G_lowResPng-c612df418c.png',
+  settings: 'https://s3-new.macosicons.com/macosicons/parse/Settings_mAOcHCOX7Q_lowResPng-69f6131f01.png',
+  launchpad: 'https://s3-new.macosicons.com/macosicons/parse/Launchpad__MacOS_Tahoe__ncy8MiCAOA_lowResPng-ffd58d03cd.png',
+  terminal: 'https://s3-new.macosicons.com/macosicons/parse/Terminal__MacOS_Tahoe__yqUGh6O6LH_lowResPng-fe7e1192ba.png',
+  spotify: 'https://s3-new.macosicons.com/macosicons/parse/Spotify_aETaKy9kbY_lowResPng-01e82d9f64.png',
+  github: 'https://s3-new.macosicons.com/macosicons/parse/GitHub_f3Nk4YHfCy_lowResPng-e2db509693.png',
+  discord: 'https://s3-new.macosicons.com/macosicons/parse/Discord_1ln9GxT6Yy_lowResPng-542f12215d.png',
   pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
-  camera: 'Camera.png',
-  chess: 'Chess.png',
+  camera: 'https://s3-new.macosicons.com/macosicons/parse/Camera_M8sp8FOHO1_lowResPng-817b61425c.png',
+  chess: 'https://s3-new.macosicons.com/macosicons/parse/Chess_MacOS_Tahoe__Liquid_Glass__p75LxR6hqJ_lowResPng-bfaa33cafb.png',
   achievements: 'https://cdn-icons-png.flaticon.com/512/3112/3112946.png',
-  calendar: 'Google_Calender.png'
+  calendar: 'https://s3-new.macosicons.com/macosicons/parse/Google_Calender_XP2RCmzU3F_lowResPng-b2885bd550.png'
 };
 const GITHUB_USER = 'ProWiddan';
 const LANYARD_REST = 'https://api.lanyard.rest/v1/users/';
