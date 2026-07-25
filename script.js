@@ -2,21 +2,21 @@
 
 const DISCORD_ID = '1175860358104219710';
 const MACOS_ICONS = {
-  folder: 'folder.png',
-  finder: 'finder.png',
-  safari: 'safari.png',
-  mail: 'mail.png',
-  notes: 'notes.png',
+  folder: 'Folder.png',
+  finder: 'Finder.png',
+  safari: 'Safari.png',
+  mail: 'Mail.png',
+  notes: 'Notes.png',
   calculator: 'Calculator.png',
   settings: 'Settings.png',
   launchpad: 'Launchpad.png',
   terminal: 'Terminal.png',
   spotify: 'Spotify.png',
   github: 'Github.png',
-  discord: 'discord.png',
+  discord: 'Discord.png',
   pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
-  camera: 'camera.png',
-  chess: 'chess.png',
+  camera: 'Camera.png',
+  chess: 'Chess.png',
   achievements: 'https://cdn-icons-png.flaticon.com/512/3112/3112946.png',
   calendar: 'Google_calender.png'
 };
