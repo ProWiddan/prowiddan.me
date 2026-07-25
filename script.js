@@ -17,8 +17,8 @@ const MACOS_ICONS = {
   pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
   camera: 'Camera.png',
   chess: 'Chess.png',
-  achievements: '',
-  calendar: 'Google_calender.png'
+  achievements: 'https://cdn-icons-png.flaticon.com/512/3112/3112946.png',
+  calendar: 'Google_Calender.png'
 };
 const GITHUB_USER = 'ProWiddan';
 const LANYARD_REST = 'https://api.lanyard.rest/v1/users/';
