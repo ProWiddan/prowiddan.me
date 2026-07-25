@@ -17,7 +17,7 @@ const MACOS_ICONS = {
   pdf: 'https://cdn-icons-png.flaticon.com/512/337/337946.png',
   camera: 'Camera.png',
   chess: 'Chess.png',
-  achievements: 'https://cdn-icons-png.flaticon.com/512/3112/3112946.png',
+  achievements: '',
   calendar: 'Google_calender.png'
 };
 const GITHUB_USER = 'ProWiddan';
