@@ -1324,10 +1324,30 @@ function runCmd(raw) {
 
 /* ====================== NOTES ====================== */
 const notesData = [
-  { id: 1, title: 'About Me', content: '<div class="notes-page"><h1>Sujayram (ProWiddan)</h1><p>I am a student currently navigating the academic obstacle course run by the Central Board of Secondary Education. I live in <strong>Oman</strong>, I\'m originally from <strong>India</strong>, and I spend most of my time learning things, breaking things, or wondering why I didn\'t start earlier.</p><p>I\'m a science student who likes figuring out how systems work—whether they are biological, physical, or digital.</p></div>', date: Date.now() },
-  { id: 2, title: 'Skills & Stack', content: '<div class="notes-page"><h1>Skills & Expertise</h1><div class="notes-skill-bar"><span>JavaScript/Web</span><div class="skill-meter"><div class="skill-progress" style="width:85%"></div></div><span>Advanced</span></div><div class="notes-skill-bar"><span>Chess Strategy</span><div class="skill-meter"><div class="skill-progress" style="width:75%"></div></div><span>Intermediate</span></div><br><ul><li><strong>Problem Solving</strong>: Debugging complex systems and logic issues.</li><li><strong>UI/UX Design</strong>: Obsessed with premium, native-feeling experiences.</li><li><strong>Rapid Learning</strong>: Ability to pick up new frameworks and tools over a weekend.</li></ul></div>', date: Date.now() },
-  { id: 3, title: 'Philosophy', content: '<div class="notes-page"><h1>My Philosophy</h1><p>I don\'t think people need to be naturally talented to get good at things. I think <strong>direction</strong>, <strong>consistency</strong>, and <strong>curiosity</strong> matter more.</p><blockquote>"Understanding lasts longer than memorizing."</blockquote><ul><li>Learning things properly instead of rushing.</li><li>Improving gradually instead of dramatically.</li><li>Doing work that actually matters and serves a purpose.</li></ul></div>', date: Date.now() },
-  { id: 4, title: 'Connect', content: '<div class="notes-page"><h1>Connect</h1><p>I\'m always open to interesting projects or just a quick chat about tech and science.</p><ul><li><strong>Email</strong>: sujayramprasad@gmail.com</li><li><strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/sujayram-prasad-0b5a61282/" target="_blank" style="color:var(--blue)">sujayram-prasad</a></li><li><strong>Twitter/X</strong>: <a href="https://x.com/SujayramPrasad" target="_blank" style="color:var(--blue)">@SujayramPrasad</a></li><li><strong>Instagram</strong>: <a href="https://www.instagram.com/sujayram_prasad/" target="_blank" style="color:var(--blue)">sujayram_prasad</a> <small style="display:block;font-size:10px;opacity:0.6"></small></li><li><strong>Discord</strong>: <a href="https://discordapp.com/users/1175860358104219710" target="_blank" style="color:var(--blue)">@prowiddan</a></li></ul></div>', date: Date.now() }
+  { 
+    id: 1, 
+    title: 'About Me', 
+    content: '<div class="notes-page"><h1>Sujayram Prasad (ProWiddan)</h1><p>I am a high school senior based in <strong>Muscat, Oman</strong>, originally from <strong>India</strong>. As an aspiring Computer Science and Design engineering student, my core focus lies at the intersection of software logic and physical hardware.</p><p>As the Co-Founder of EduDev Commons and an active builder in the global Hack Club community, I spend my time designing IoT systems, assembling custom FPV drones, and building scalable tech solutions that solve real-world problems.</p></div>', 
+    date: Date.now() 
+  },
+  { 
+    id: 2, 
+    title: 'Skills & Stack', 
+    content: '<div class="notes-page"><h1>Skills & Hardware Stack</h1><div class="notes-skill-bar"><span>C++ / Python / JS</span><div class="skill-meter"><div class="skill-progress" style="width:85%"></div></div><span>Advanced</span></div><div class="notes-skill-bar"><span>ESP32 & Embedded IoT</span><div class="skill-meter"><div class="skill-progress" style="width:80%"></div></div><span>Advanced</span></div><div class="notes-skill-bar"><span>3D CAD & Printing</span><div class="skill-meter"><div class="skill-progress" style="width:70%"></div></div><span>Intermediate</span></div><br><ul><li><strong>Hardware Integration</strong>: Architecting sensor-driven smart systems (EcoGrow) and custom payload FPV drones.</li><li><strong>Open Source & Data</strong>: Curating and publishing global telemetry datasets for the AI community.</li><li><strong>System Optimization</strong>: Debugging complex physical and digital logic loops under strict constraints.</li></ul></div>', 
+    date: Date.now() 
+  },
+  { 
+    id: 3, 
+    title: 'Philosophy', 
+    content: '<div class="notes-page"><h1>My Philosophy</h1><p>I believe that engineering is fundamentally about solving real-world problems through a project-first approach. My core learning framework is <strong>"Debug, don\'t read"</strong>—an active, hands-on approach to breaking down and mastering complex systems.</p><blockquote>"Understanding is forged by building, breaking, and iterating."</blockquote><ul><li>Building systems that serve a tangible, real-world purpose.</li><li>Prioritizing hands-on iteration over passive learning.</li><li>Democratizing access to technology and data for the broader developer community.</li></ul></div>', 
+    date: Date.now() 
+  },
+  { 
+    id: 4, 
+    title: 'Connect', 
+    content: '<div class="notes-page"><h1>Connect</h1><p>I am always open to collaborating on open-source projects, hardware builds, or discussing tech and engineering.</p><ul><li><strong>Email</strong>: sujayramprasad@gmail.com</li><li><strong>GitHub</strong>: <a href="https://github.com/ProWiddan" target="_blank" style="color:var(--blue)">ProWiddan</a></li><li><strong>Hugging Face</strong>: <a href="https://huggingface.co/EduDevCommons" target="_blank" style="color:var(--blue)">EduDevCommons</a></li><li><strong>LinkedIn</strong>: <a href="https://www.linkedin.com/in/sujayram-prasad-0b5a61282/" target="_blank" style="color:var(--blue)">sujayram-prasad</a></li><li><strong>Twitter/X</strong>: <a href="https://x.com/SujayramPrasad" target="_blank" style="color:var(--blue)">@SujayramPrasad</a></li><li><strong>Instagram</strong>: <a href="https://www.instagram.com/sujayram_prasad/" target="_blank" style="color:var(--blue)">sujayram_prasad</a></li><li><strong>Discord</strong>: <a href="https://discordapp.com/users/1175860358104219710" target="_blank" style="color:var(--blue)">@prowiddan</a></li></ul></div>', 
+    date: Date.now() 
+  }
 ];
 let activeNoteId = 1;
 
